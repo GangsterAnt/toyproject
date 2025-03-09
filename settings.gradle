@@ -1,0 +1,3 @@
+rootProject.name = 'toyproject'
+include 'board-domain'
+include 'board-api'
