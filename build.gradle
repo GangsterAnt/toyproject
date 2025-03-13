@@ -41,6 +41,7 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		compileOnly 'org.projectlombok:lombok'
 		developmentOnly 'org.springframework.boot:spring-boot-devtools'
+		implementation 'joda-time:joda-time:2.10.14'
 		annotationProcessor 'org.projectlombok:lombok'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
