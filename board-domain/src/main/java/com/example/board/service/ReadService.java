@@ -1,49 +1,37 @@
 package com.example.board.service;
 
+import com.example.board.dto.PostDto;
 import com.example.board.dto.PostListDto;
-import com.example.board.model.CommentBo;
-import com.example.board.model.Post;
+import com.example.board.dto.PostSummaryDto;
 import com.example.board.model.PostBo;
-import com.example.board.repository.CommentRepository;
-import com.example.board.repository.PostRepository;
-import com.example.board.service.converter.CommentBoConverter;
-import com.example.board.service.converter.PostBoConverter;
-import com.example.board.service.converter.PostDtoConverter;
+import com.example.board.model.PostSummaryBo;
+import com.example.board.repository.RepositoryWrapper;
+import com.example.board.service.converter.post.PostDtoConverter;
+import com.example.board.service.converter.post.PostListDtoConverter;
+import com.example.board.service.converter.post.PostSummaryDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class ReadService {
 
+    private final RepositoryWrapper repositoryWrapper;
+
     private final PostDtoConverter postDtoConverter;
+    private final PostSummaryDtoConverter postSummaryDtoConverter;
+    private final PostListDtoConverter postListDtoConverter;
 
-    private final PostBoConverter postBoConverter;
-    private final CommentBoConverter commentBoConverter;
-
-    private final PostRepository postRepository;
-    private final CommentRepository commentRepository;
-
-    public PostBo getPostById(Long id) {
-        Post post = postRepository.getReferenceById(id);
-        if (post == null) {
-            return null; //TODO return 404
-        }
-
-        List<CommentBo> collect = Optional.ofNullable(commentRepository.findByRootPostId(id))
-                .stream()
-                .flatMap(List::stream)
-                .map(commentBoConverter::convertFromEntity)
-                .collect(Collectors.toList());
-
-        return postBoConverter.convertFromEntity(post, collect);
+    public PostDto getPostById(Long id) {
+        PostBo postById = repositoryWrapper.getPostById(id);
+        return postDtoConverter.convertToDto(postById);
     }
 
     public PostListDto getPostList() {
-        return null;
+        List<PostSummaryBo> postSummaryList = repositoryWrapper.getPostSummaryList();
+        List<PostSummaryDto> postSummaryDtos = postSummaryDtoConverter.convertToDtoList(postSummaryList);
+        return postListDtoConverter.convertToDto(postSummaryDtos);
     }
 }
