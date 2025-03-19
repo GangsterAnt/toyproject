@@ -6,10 +6,10 @@ import java.util.List;
 
 @Component
 public class PostListDtoConverter {
-
-    public PostListDto convertToDto(List<PostSummaryDto> posts) {
-        return PostListDto.builder()
-                .posts(posts)
-                .build();
-    }
+//
+//    public PostListDto convertToDto(List<PostSummaryDto> posts) {
+//        return PostListDto.builder()
+//                .posts(posts)
+//                .build();
+//    }
 }

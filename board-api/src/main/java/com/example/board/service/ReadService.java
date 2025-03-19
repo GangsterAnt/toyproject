@@ -12,20 +12,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReadService {
 
-    private final RepositoryWrapper repositoryWrapper;
-
-    private final PostDtoConverter postDtoConverter;
-    private final PostSummaryDtoConverter postSummaryDtoConverter;
-    private final PostListDtoConverter postListDtoConverter;
-
-    public PostDto getPostById(Long id) {
-        PostBo postById = repositoryWrapper.getPostById(id);
-        return postDtoConverter.convertToDto(postById);
-    }
-
-    public PostListDto getPostList() {
-        List<PostSummaryBo> postSummaryList = repositoryWrapper.getPostSummaryList();
-        List<PostSummaryDto> postSummaryDtos = postSummaryDtoConverter.convertToDtoList(postSummaryList);
-        return postListDtoConverter.convertToDto(postSummaryDtos);
-    }
+//    private final RepositoryWrapper repositoryWrapper;
+//
+//    private final PostDtoConverter postDtoConverter;
+//    private final PostSummaryDtoConverter postSummaryDtoConverter;
+//    private final PostListDtoConverter postListDtoConverter;
+//
+//    public PostDto getPostById(Long id) {
+//        PostBo postById = repositoryWrapper.getPostById(id);
+//        return postDtoConverter.convertToDto(postById);
+//    }
+//
+//    public PostListDto getPostList() {
+//        List<PostSummaryBo> postSummaryList = repositoryWrapper.getPostSummaryList();
+//        List<PostSummaryDto> postSummaryDtos = postSummaryDtoConverter.convertToDtoList(postSummaryList);
+//        return postListDtoConverter.convertToDto(postSummaryDtos);
+//    }
 }

@@ -1,6 +1,7 @@
 package com.example.board.service.converter.comment;
 
 import com.example.board.dto.CommentDto;
+import com.example.board.model.CommentBo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class CommentBoConverter {
 
-    public CommentBo convertFromEntity(Comment comment) {
+    public CommentBo convertFromEntity(CommentDto comment) {
         return CommentBo.builder()
                 .commentId(comment.getCommentId())
                 .content(comment.getContent())
@@ -23,7 +24,7 @@ public class CommentBoConverter {
                 .build();
     }
 
-    public List<CommentBo> convertFromEntityList(List<Comment> commentList) {
+    public List<CommentBo> convertFromEntityList(List<CommentDto> commentList) {
         return commentList.stream()
                 .filter(Objects::nonNull)
                 .map(this::convertFromEntity)
