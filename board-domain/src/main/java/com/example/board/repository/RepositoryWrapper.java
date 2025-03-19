@@ -1,12 +1,8 @@
 package com.example.board.repository;
 
-import com.example.board.model.CommentBo;
 import com.example.board.model.Post;
-import com.example.board.model.PostBo;
-import com.example.board.model.PostSummaryBo;
 import com.example.board.service.converter.comment.CommentBoConverter;
 import com.example.board.service.converter.post.PostBoConverter;
-import com.example.board.service.converter.post.PostSummaryBoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

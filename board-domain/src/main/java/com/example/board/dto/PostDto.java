@@ -12,7 +12,7 @@ public class PostDto {
     private Long postId;
     private String title;
     private String content;
-    private String author;
+    private String ownerMemberId;
     private Integer likes;
     private Integer dislikes;
     private LocalDateTime createdAt;

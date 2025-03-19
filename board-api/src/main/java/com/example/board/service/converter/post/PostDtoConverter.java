@@ -20,8 +20,8 @@ public class PostDtoConverter {
                 .build();
     }
 
-    public Post convertToEntity(PostDto post) {
-        return Post.builder()
+    public PostDto convertToDto(PostBo post) {
+        return PostDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .title(post.getContent())
@@ -30,6 +30,19 @@ public class PostDtoConverter {
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
+                .build();
+    }
+
+    public PostBo convertToBo(PostDto postDto) {
+        return PostBo.builder()
+                .postId(postDto.getPostId())
+                .title(postDto.getTitle())
+                .content(postDto.getContent())
+                .ownerMemberId(postDto.getOwnerMemberId())
+                .likes(postDto.getLikes())
+                .dislikes(postDto.getDislikes())
+                .createdAt(postDto.getCreatedAt())
+                .modifiedAt(postDto.getModifiedAt())
                 .build();
     }
 }

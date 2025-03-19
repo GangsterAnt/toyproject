@@ -1,8 +1,6 @@
 package com.example.board.service.converter.comment;
 
 import com.example.board.dto.CommentDto;
-import com.example.board.model.Comment;
-import com.example.board.model.CommentBo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

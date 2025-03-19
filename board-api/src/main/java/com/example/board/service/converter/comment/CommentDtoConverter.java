@@ -1,14 +1,13 @@
 package com.example.board.service.converter.comment;
 
 import com.example.board.dto.CommentDto;
-import com.example.board.model.Comment;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommentDtoConverter {
 
-    public Comment convertToEntity(CommentDto commentDto) {
-        return Comment.builder()
+    public CommentBo convertToBo(CommentDto commentDto) {
+        return CommentBo.builder()
                 .commentId(commentDto.getCommentId())
                 .content(commentDto.getContent())
                 .createdAt(commentDto.getCreatedAt())
@@ -20,7 +19,7 @@ public class CommentDtoConverter {
                 .build();
     }
 
-    public CommentDto convertToDto(Comment commentBo) {
+    public CommentDto convertToDto(CommentBo commentBo) {
         return CommentDto.builder()
                 .commentId(commentBo.getCommentId())
                 .content(commentBo.getContent())

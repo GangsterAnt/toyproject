@@ -1,14 +1,18 @@
 package com.example.board.model;
 
 import jakarta.persistence.Entity;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Builder
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post {
     private Long postId;
     private String title;

@@ -1,7 +1,6 @@
 package com.example.board.controller;
 
 import com.example.board.dto.PostDto;
-import com.example.board.dto.PostListDto;
 import com.example.board.service.ReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,37 +1,45 @@
 package com.example.board.service;
 
+import com.example.board.dto.CommentDto;
 import com.example.board.dto.PostDto;
-import com.example.board.dto.PostListDto;
-import com.example.board.dto.PostSummaryDto;
-import com.example.board.model.PostBo;
-import com.example.board.model.PostSummaryBo;
-import com.example.board.repository.RepositoryWrapper;
+import com.example.board.model.Comment;
+import com.example.board.model.Post;
+import com.example.board.repository.CommentRepository;
+import com.example.board.repository.PostRepository;
+import com.example.board.service.converter.comment.CommentDtoConverter;
 import com.example.board.service.converter.post.PostDtoConverter;
-import com.example.board.service.converter.post.PostListDtoConverter;
-import com.example.board.service.converter.post.PostSummaryDtoConverter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-@Component
 @RequiredArgsConstructor
 public class ReadService {
 
-    private final RepositoryWrapper repositoryWrapper;
+    private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
-    private final PostDtoConverter postDtoConverter;
-    private final PostSummaryDtoConverter postSummaryDtoConverter;
-    private final PostListDtoConverter postListDtoConverter;
+    private final PostDtoConverter dtoConverter;
+    private final CommentDtoConverter commentDtoConverter;
 
     public PostDto getPostById(Long id) {
-        PostBo postById = repositoryWrapper.getPostById(id);
-        return postDtoConverter.convertToDto(postById);
+        Optional<Post> byPostId = postRepository.findByPostId(id);
+        if (byPostId.isEmpty()) {
+            return null; // TODO return 404
+        }
+
+        return dtoConverter.convertToDto(byPostId.get());
     }
 
-    public PostListDto getPostList() {
-        List<PostSummaryBo> postSummaryList = repositoryWrapper.getPostSummaryList();
-        List<PostSummaryDto> postSummaryDtos = postSummaryDtoConverter.convertToDtoList(postSummaryList);
-        return postListDtoConverter.convertToDto(postSummaryDtos);
+    public List<CommentDto> getCommentByRootPostId(Long rootPostId) {
+        List<Comment> byRootPostId = commentRepository.findByRootPostId(rootPostId);
+        if (byRootPostId == null || byRootPostId.isEmpty()) {
+            return null; // TODO return 404
+        }
+
+        return byRootPostId.stream()
+                .map(commentDtoConverter::convertToDto)
+                .collect(Collectors.toList());
     }
 }

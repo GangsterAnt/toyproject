@@ -1,7 +1,5 @@
 package com.example.board.service.converter.post;
 
-import com.example.board.dto.PostSummaryDto;
-import com.example.board.model.PostSummaryBo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

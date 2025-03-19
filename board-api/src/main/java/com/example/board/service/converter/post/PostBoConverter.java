@@ -1,9 +1,6 @@
 package com.example.board.service.converter.post;
 
-import com.example.board.dto.PostDto;
-import com.example.board.model.CommentBo;
 import com.example.board.model.Post;
-import com.example.board.model.PostBo;
 import com.example.board.service.CommentHierarchyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

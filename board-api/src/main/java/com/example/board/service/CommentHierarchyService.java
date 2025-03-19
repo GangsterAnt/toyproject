@@ -1,6 +1,5 @@
 package com.example.board.service;
 
-import com.example.board.model.CommentBo;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
