@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
-@Data
+@Getter
 public class CommentDto {
 
     private Long commentId;
@@ -22,8 +23,5 @@ public class CommentDto {
     private LocalDateTime modifiedAt;
 
     private Long rootPostId;
-    private Long childCommentId;
-    private CommentDto childCommentDto;
-    private Long parentCommentId;
-    private CommentDto parentCommentDto;
+    private List<CommentDto> childCommentDtoList;
 }

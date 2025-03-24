@@ -1,4 +1,4 @@
-CREATE TABLE comment_v0 (
+CREATE TABLE comment_v1 (
     comment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     content VARCHAR(255) NOT NULL,
     likes INT DEFAULT 0 NOT NULL,
@@ -7,7 +7,6 @@ CREATE TABLE comment_v0 (
     modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     owner_member_id BIGINT NOT NULL,
     root_post_id BIGINT NOT NULL,
-    child_comment_id BIGINT NULL,
     parent_comment_id BIGINT NULL
 );
 

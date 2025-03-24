@@ -3,8 +3,10 @@ package com.example.board.bo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Builder
@@ -21,21 +23,17 @@ public class CommentBo {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    private Long childCommentId;
-    @Setter
-    private CommentBo childCommentBo;
-
+    @Nullable
     private Long parentCommentId;
+
+    @Nullable
     @Setter
-    private CommentBo parentCommentBo;
+    private List<CommentBo> childCommentBoList;
 }
 
 /*
-1.댓글
-    대댓글입니다
-        대대댓글입니다.
-
- 2. 댓글
-    대댓글입니다.
-    대대댓글입니다.
+update history 23 3 2025
+대댓글 계층구조를
+댓글 -> 대댓글 ->대대댓글 에서
+댓글 -> 대댓글 리스트로 변환. createdAt으로 정렬
  */

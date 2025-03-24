@@ -1,7 +1,6 @@
 package com.example.board.service.converter.comment;
 
 import com.example.board.bo.CommentBo;
-import com.example.board.dto.CommentDto;
 import com.example.board.model.Comment;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +22,6 @@ public class CommentEntityConverter {
                 .modifiedAt(comment.getModifiedAt())
                 .rootPostId(comment.getRootPostId())
                 .parentCommentId(comment.getParentCommentId())
-                .childCommentId(comment.getChildCommentId())
                 .build();
     }
 
@@ -34,7 +32,7 @@ public class CommentEntityConverter {
                 .collect(Collectors.toList());
     }
 
-    public Comment convertToDto(CommentBo commentBo) {
+    public Comment convertToEntity(CommentBo commentBo) {
         return Comment.builder()
                 .commentId(commentBo.getCommentId())
                 .content(commentBo.getContent())
@@ -44,15 +42,14 @@ public class CommentEntityConverter {
                 .createdAt(commentBo.getCreatedAt())
                 .modifiedAt(commentBo.getModifiedAt())
                 .rootPostId(commentBo.getRootPostId())
-                .childCommentId(commentBo.getChildCommentId())
                 .parentCommentId(commentBo.getParentCommentId())
                 .build();
     }
 
-    public List<Comment> convertToDtoList(List<CommentBo> commentBoList) {
+    public List<Comment> convertToEntityList(List<CommentBo> commentBoList) {
         return commentBoList.stream()
                 .filter(Objects::nonNull)
-                .map(this::convertToDto)
+                .map(this::convertToEntity)
                 .collect(Collectors.toList());
     }
 }

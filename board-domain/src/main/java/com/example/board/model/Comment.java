@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "comment_v0")
+@Table(name = "comment_v1")
 public class Comment {
     @Id
     private Long commentId;
@@ -30,6 +30,5 @@ public class Comment {
     private LocalDateTime modifiedAt;
 
     private Long rootPostId;
-    private Long childCommentId;
     private Long parentCommentId;
 }
