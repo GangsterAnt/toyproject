@@ -6,8 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ReadController {
 
@@ -18,8 +19,8 @@ public class ReadController {
         return readService.getPostById(id);
     }
 
-    @GetMapping("/getPostList")
-    public PostListDto getPostList() {
-        return readService.getPostList();
-    }
+//    @GetMapping("/getPostList")
+//    public PostListDto getPostList() {
+//        return readService.getPostList();
+//    }
 }

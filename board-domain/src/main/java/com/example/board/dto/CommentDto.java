@@ -1,13 +1,14 @@
 package com.example.board.dto;
 
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Builder
-@Getter
+@Data
 public class CommentDto {
 
     private Long commentId;
@@ -22,5 +23,7 @@ public class CommentDto {
 
     private Long rootPostId;
     private Long childCommentId;
+    private CommentDto childCommentDto;
     private Long parentCommentId;
+    private CommentDto parentCommentDto;
 }

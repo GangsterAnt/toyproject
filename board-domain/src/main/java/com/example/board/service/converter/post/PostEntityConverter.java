@@ -1,9 +1,9 @@
 package com.example.board.service.converter.post;
 
-import com.example.board.model.CommentBo;
+import com.example.board.bo.CommentBo;
+import com.example.board.bo.PostBo;
 import com.example.board.model.Post;
-import com.example.board.model.PostBo;
-import com.example.board.service.CommentHierarchyService;
+import com.example.board.service.CommentBoHierarchyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class PostBoConverter {
+public class PostEntityConverter {
 
-   private final CommentHierarchyService commentHierarchyService;
+   private final CommentBoHierarchyService commentBoHierarchyService;
 
    //entity -> Bo
     public PostBo convertFromEntityWithComments(Post post, List<CommentBo> commentBoList) {
@@ -21,12 +21,12 @@ public class PostBoConverter {
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
-                .createdAt(post.getCreatedAt())
-                .modifiedAt(post.getModifiedAt())
                 .ownerMemberId(post.getOwnerMemberId())
                 .likes(post.getLikes())
                 .dislikes(post.getDislikes())
-                .commentList(commentHierarchyService.assembleCommentListToHierarchy(commentBoList))
+                .createdAt(post.getCreatedAt())
+                .modifiedAt(post.getModifiedAt())
+                .commentList(commentBoHierarchyService.assembleCommentListToHierarchy(commentBoList))
                 .build();
     }
 }

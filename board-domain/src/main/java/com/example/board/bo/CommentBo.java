@@ -1,4 +1,4 @@
-package com.example.board.model;
+package com.example.board.bo;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -23,9 +23,19 @@ public class CommentBo {
 
     private Long childCommentId;
     @Setter
-    private CommentBo childComment;
+    private CommentBo childCommentBo;
 
     private Long parentCommentId;
     @Setter
-    private CommentBo parentComment;
+    private CommentBo parentCommentBo;
 }
+
+/*
+1.댓글
+    대댓글입니다
+        대대댓글입니다.
+
+ 2. 댓글
+    대댓글입니다.
+    대대댓글입니다.
+ */

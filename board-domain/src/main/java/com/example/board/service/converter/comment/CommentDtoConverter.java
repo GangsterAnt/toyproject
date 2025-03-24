@@ -1,14 +1,27 @@
 package com.example.board.service.converter.comment;
 
+import com.example.board.bo.CommentBo;
 import com.example.board.dto.CommentDto;
-import com.example.board.model.Comment;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+/*
+    * This class is responsible for converting CommentDto <-> CommentBo
+ */
 @Component
 public class CommentDtoConverter {
 
-    public Comment convertToEntity(CommentDto commentDto) {
-        return Comment.builder()
+    public CommentBo convertToBo(CommentDto commentDto) {
+        if (commentDto == null) {
+            return null;
+        }
+
+        CommentBo childCommentBo = convertToBo(commentDto.getChildCommentDto());
+        CommentBo parentCommentBo = convertToBo(commentDto.getParentCommentDto());
+
+        return CommentBo.builder()
                 .commentId(commentDto.getCommentId())
                 .content(commentDto.getContent())
                 .createdAt(commentDto.getCreatedAt())
@@ -17,10 +30,19 @@ public class CommentDtoConverter {
                 .rootPostId(commentDto.getRootPostId())
                 .likes(commentDto.getLikes())
                 .dislikes(commentDto.getDislikes())
+                .childCommentBo(childCommentBo)
+                .parentCommentBo(parentCommentBo)
                 .build();
     }
 
-    public CommentDto convertToDto(Comment commentBo) {
+    public CommentDto convertToDto(CommentBo commentBo) {
+        if (commentBo == null) {
+            return null;
+        }
+
+        CommentDto childCommentDto = convertToDto(commentBo.getChildCommentBo());
+        CommentDto parentCommentDto = convertToDto(commentBo.getParentCommentBo());
+
         return CommentDto.builder()
                 .commentId(commentBo.getCommentId())
                 .content(commentBo.getContent())
@@ -30,6 +52,14 @@ public class CommentDtoConverter {
                 .rootPostId(commentBo.getRootPostId())
                 .likes(commentBo.getLikes())
                 .dislikes(commentBo.getDislikes())
+                .childCommentDto(childCommentDto)
+                .parentCommentDto(parentCommentDto)
                 .build();
+    }
+
+    public List<CommentDto> convertToDtoList(List<CommentBo> commentBoList) {
+        return commentBoList.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 }

@@ -1,10 +1,12 @@
-CREATE TABLE post (
+CREATE TABLE post_v0 (
     post_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
     content VARCHAR(255) NOT NULL,
     likes INT DEFAULT 0 NOT NULL,
     dislikes INT DEFAULT 0 NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    modified_at TIMESTAMP,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     owner_member_id BIGINT NOT NULL
 );
+
+create unique index post_idx_1 on post_v0 (created_at);

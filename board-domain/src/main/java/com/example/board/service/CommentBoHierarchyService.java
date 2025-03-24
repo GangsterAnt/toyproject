@@ -1,6 +1,6 @@
 package com.example.board.service;
 
-import com.example.board.model.CommentBo;
+import com.example.board.bo.CommentBo;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class CommentHierarchyService {
+public class CommentBoHierarchyService {
 
     public List<CommentBo> assembleCommentListToHierarchy(List<CommentBo> comments) {
         if (comments == null) {
@@ -43,8 +43,8 @@ public class CommentHierarchyService {
             if (commentBo.getParentCommentId() != null) {
                 CommentBo parentComment = commentMap.get(commentBo.getParentCommentId());
                 if (parentComment != null) {
-                    parentComment.setChildComment(commentBo);
-                    commentBo.setParentComment(parentComment);
+                    parentComment.setChildCommentBo(commentBo);
+                    commentBo.setParentCommentBo(parentComment);
                 }
             }
         }
