@@ -60,7 +60,7 @@ public class CommentBoHierarchyService {
     private List<CommentBo> getRootComments(List<CommentBo> comments) {
         List<CommentBo> rootComments = new ArrayList<>();
         for (CommentBo comment : comments) {
-            if (comment.getParentCommentId() != null) {
+            if (comment.getParentCommentId() == null) {
                 rootComments.add(comment);
                 comment.setChildCommentBoList(new ArrayList<>());
             }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
-@Getter
+@Data
 public class CommentDto {
 
     private Long commentId;
@@ -23,5 +23,7 @@ public class CommentDto {
     private LocalDateTime modifiedAt;
 
     private Long rootPostId;
+
+    private Long parentCommentId;
     private List<CommentDto> childCommentDtoList;
 }

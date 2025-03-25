@@ -5,6 +5,7 @@ import com.example.board.dto.CommentDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /*
@@ -18,9 +19,6 @@ public class CommentDtoConverter {
             return null;
         }
 
-        CommentBo childCommentBo = convertToBo(commentDto.getChildCommentDto());
-        CommentBo parentCommentBo = convertToBo(commentDto.getParentCommentDto());
-
         return CommentBo.builder()
                 .commentId(commentDto.getCommentId())
                 .content(commentDto.getContent())
@@ -30,8 +28,12 @@ public class CommentDtoConverter {
                 .rootPostId(commentDto.getRootPostId())
                 .likes(commentDto.getLikes())
                 .dislikes(commentDto.getDislikes())
-                .childCommentBo(childCommentBo)
-                .parentCommentBo(parentCommentBo)
+                .parentCommentId(commentDto.getParentCommentId())
+                .childCommentBoList(Optional.ofNullable(commentDto.getChildCommentDtoList())
+                        .stream()
+                        .flatMap(List::stream)
+                        .map(this::convertToBo) //Caution: recursive call
+                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -39,9 +41,6 @@ public class CommentDtoConverter {
         if (commentBo == null) {
             return null;
         }
-
-        CommentDto childCommentDto = convertToDto(commentBo.getChildCommentBo());
-        CommentDto parentCommentDto = convertToDto(commentBo.getParentCommentBo());
 
         return CommentDto.builder()
                 .commentId(commentBo.getCommentId())
@@ -52,8 +51,12 @@ public class CommentDtoConverter {
                 .rootPostId(commentBo.getRootPostId())
                 .likes(commentBo.getLikes())
                 .dislikes(commentBo.getDislikes())
-                .childCommentDto(childCommentDto)
-                .parentCommentDto(parentCommentDto)
+                .parentCommentId(commentBo.getParentCommentId())
+                .childCommentDtoList(Optional.ofNullable(commentBo.getChildCommentBoList())
+                        .stream()
+                        .flatMap(List::stream)
+                        .map(this::convertToDto) //Caution: recursive call
+                        .collect(Collectors.toList()))
                 .build();
     }
 
