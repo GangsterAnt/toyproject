@@ -1,3 +1,4 @@
 rootProject.name = 'toyproject'
 include 'board-domain'
 include 'board-api'
+include 'board-admin'

@@ -1,0 +1,7 @@
+dependencies {
+	implementation project(":board-domain")
+}
+
+test {
+	useJUnitPlatform()
+}
