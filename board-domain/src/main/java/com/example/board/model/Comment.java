@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "comment_v1")
+@Table(name = "comment_v2")
 public class Comment {
     @Id
     private Long commentId;
@@ -28,7 +28,9 @@ public class Comment {
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private LocalDateTime deletedAt;
 
+    private boolean hidden;
     private Long rootPostId;
     private Long parentCommentId;
 }

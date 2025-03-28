@@ -6,6 +6,7 @@ import com.example.board.model.Post;
 import com.example.board.service.converter.comment.CommentEntityConverter;
 import com.example.board.service.converter.post.PostEntityConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class RepositoryWrapper {
 
     private final CommentRepository commentRepository;
@@ -21,25 +23,65 @@ public class RepositoryWrapper {
 
     private final CommentEntityConverter commentEntityConverter;
     private final PostEntityConverter postEntityConverter;
-//    private final PostSummaryBoConverter postSummaryBoConverter;
 
     public PostBo getPostById(Long id) {
-        Post post = postRepository.getReferenceById(id);
-        if (post == null) {
+        Optional<Post> postOptional = postRepository.findActivePostByRootPostId(id);
+        if (postOptional.isEmpty()) {
             return null; //TODO return 404
         }
 
+        Post post = postOptional.get();
         List<CommentBo> collect = getCommentListByPostId(id);
 
         return postEntityConverter.convertFromEntityWithComments(post, collect);
     }
 
     public List<CommentBo> getCommentListByPostId(Long id) {
-        return Optional.ofNullable(commentRepository.findByRootPostId(id))
+        return Optional.ofNullable(commentRepository.findActiveCommentsByRootPostId(id))
                 .stream()
                 .flatMap(List::stream)
                 .map(commentEntityConverter::convertFromEntity)
                 .collect(Collectors.toList());
+    }
+
+    public boolean hidePost(Long id) {
+        try {
+            postRepository.hidePostById(id);
+            return true;
+        } catch (Exception e) {
+            log.warn("Failed to hide post: {}", id, e);
+            return false;
+        }
+    }
+
+    public boolean unHidePost(Long id) {
+        try {
+            postRepository.unHidePostById(id);
+            return true;
+        } catch (Exception e) {
+            log.warn("Failed to un-hide post: {}", id, e);
+            return false;
+        }
+    }
+
+    public boolean hideComment(Long id) {
+        try {
+            postRepository.hideCommentById(id);
+            return true;
+        } catch (Exception e) {
+            log.warn("Failed to hide post: {}", id, e);
+            return false;
+        }
+    }
+
+    public boolean unHideComment(Long id) {
+        try {
+            postRepository.unHideCommentById(id);
+            return true;
+        } catch (Exception e) {
+            log.warn("Failed to un-hide post: {}", id, e);
+            return false;
+        }
     }
 
 //    public List<PostSummaryBo> getPostSummaryList() {

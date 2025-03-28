@@ -5,6 +5,8 @@ CREATE TABLE comment_v1 (
     dislikes INT DEFAULT 0 NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP NULL,
+    hidden BOOLEAN DEFAULT FALSE NOT NULL,
     owner_member_id BIGINT NOT NULL,
     root_post_id BIGINT NOT NULL,
     parent_comment_id BIGINT NULL

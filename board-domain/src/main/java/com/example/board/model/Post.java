@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "post_v0")
+@Table(name = "post_v1")
 public class Post {
     @Id
     private Long postId;
@@ -25,7 +25,9 @@ public class Post {
 
     private int likes;
     private int dislikes;
+    private boolean hidden;
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private LocalDateTime deletedAt;
 }
