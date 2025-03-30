@@ -2,6 +2,7 @@ package com.example.board.repository;
 
 import com.example.board.bo.CommentBo;
 import com.example.board.bo.PostBo;
+import com.example.board.bo.PostSummaryBo;
 import com.example.board.model.Post;
 import com.example.board.service.converter.comment.CommentEntityConverter;
 import com.example.board.service.converter.post.PostEntityConverter;
@@ -38,6 +39,21 @@ public class RepositoryWrapper {
         List<CommentBo> collect = getCommentListByPostId(id);
 
         return postEntityConverter.convertFromEntityWithComments(post, collect);
+    }
+
+    public List<PostSummaryBo> getAllPosts(boolean filterDeleted) {
+        List<Post> allPosts = postRepository.findAll();
+
+        if (filterDeleted) { //TODO change this to query level
+            allPosts = allPosts.stream()
+                    .filter(post -> post.getDeletedAt() == null)
+                    .filter(post -> !post.isHidden())
+                    .collect(Collectors.toList());
+        }
+
+        return allPosts.stream()
+                .map(postEntityConverter::convertToPostSummaryBo)
+                .collect(Collectors.toList());
     }
 
     public List<CommentBo> getCommentListByPostId(Long id) {

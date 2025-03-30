@@ -2,6 +2,7 @@ package com.example.board.service.converter.post;
 
 import com.example.board.bo.CommentBo;
 import com.example.board.bo.PostBo;
+import com.example.board.bo.PostSummaryBo;
 import com.example.board.model.Post;
 import com.example.board.service.CommentBoHierarchyService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,17 @@ public class PostEntityConverter {
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
                 .commentList(commentBoHierarchyService.assembleCommentListToHierarchy(commentBoList))
+                .build();
+    }
+
+    public PostSummaryBo convertToPostSummaryBo(Post post) {
+        return PostSummaryBo.builder()
+                .postId(post.getPostId())
+                .title(post.getTitle())
+                .ownerMemberId(post.getOwnerMemberId())
+                .likes(post.getLikes())
+                .dislikes(post.getDislikes())
+                .createdAt(post.getCreatedAt())
                 .build();
     }
 }
