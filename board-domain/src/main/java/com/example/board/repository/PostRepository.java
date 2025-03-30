@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Transactional
     @Query("UPDATE Comment c SET c.hidden = false WHERE c.id = :id")
     void unHideCommentById(Long id);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Post p SET p.deletedAt = :deletedAt WHERE p.id = :id")
+    void softDeleteById(@Param("id") Long id, @Param("deletedAt") Timestamp deletedAt);
 
     List<Post> findAll();
 }

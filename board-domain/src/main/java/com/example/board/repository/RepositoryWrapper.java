@@ -9,6 +9,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,6 +84,29 @@ public class RepositoryWrapper {
             return true;
         } catch (Exception e) {
             log.warn("Failed to un-hide post: {}", id, e);
+            return false;
+        }
+    }
+
+    public boolean hardDeletePost(Long id) {
+        try {
+            postRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            log.warn("Failed to delete post: {}", id, e);
+            return false;
+        }
+    }
+
+    public boolean softDeletePost(Long id) {
+        try {
+            ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
+            Instant instant = now.toInstant();
+            Timestamp deleteAt = Timestamp.from(instant);
+            postRepository.softDeleteById(id, deleteAt);
+            return true;
+        } catch (Exception e) {
+            log.warn("Failed to delete post: {}", id, e);
             return false;
         }
     }
