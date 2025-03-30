@@ -8,6 +8,9 @@ import com.example.board.service.converter.comment.CommentEntityConverter;
 import com.example.board.service.converter.post.PostEntityConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -36,7 +39,12 @@ public class RepositoryWrapper {
         }
 
         Post post = postOptional.get();
-        List<CommentBo> collect = getCommentListByPostId(id);
+        List<CommentBo> collect = getRootCommentListByPostId(id);
+        for (CommentBo commentBo : collect) {
+            Pageable pageable = PageRequest.of(0, 20, Sort.by( "createdAt").ascending());
+            List<CommentBo> childComments = getChildCommentsListByParentCommentId(commentBo.getCommentId(), pageable);
+            commentBo.setChildCommentBoList(childComments);
+        }
 
         return postEntityConverter.convertFromEntityWithComments(post, collect);
     }
@@ -56,8 +64,26 @@ public class RepositoryWrapper {
                 .collect(Collectors.toList());
     }
 
+    @Deprecated
     public List<CommentBo> getCommentListByPostId(Long id) {
         return Optional.ofNullable(commentRepository.findActiveCommentsByRootPostId(id))
+                .stream()
+                .flatMap(List::stream)
+                .map(commentEntityConverter::convertFromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<CommentBo> getRootCommentListByPostId(Long id) {
+        Pageable pageable = PageRequest.of(0, 20, Sort.by( "createdAt").ascending());
+        return Optional.ofNullable(commentRepository.findActiveRootCommentsByRootPostId(id, pageable))
+                .stream()
+                .flatMap(List::stream)
+                .map(commentEntityConverter::convertFromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<CommentBo> getChildCommentsListByParentCommentId(Long id, Pageable pageable) {
+        return Optional.ofNullable(commentRepository.findActiveChildCommentsByParentCommentId(id, pageable))
                 .stream()
                 .flatMap(List::stream)
                 .map(commentEntityConverter::convertFromEntity)

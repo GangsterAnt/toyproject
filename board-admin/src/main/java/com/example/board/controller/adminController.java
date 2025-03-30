@@ -23,7 +23,7 @@ public class adminController {
 
     @GetMapping("/admin/allpost")
     public String adminPageGetAllPost(Model model) {
-        List<PostSummaryBo> allPost = readService.getAllPost(true);
+        List<PostSummaryBo> allPost = readService.getAllPost(false);
         model.addAttribute("allPost", allPost);
         return "admin/index"; // templates/admin/index.html을 반환
     }
