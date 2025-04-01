@@ -27,7 +27,7 @@ public class PostEntityConverter {
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
-                .commentList(commentBoHierarchyService.assembleCommentListToHierarchy(commentBoList))
+                .commentList(commentBoList)
                 .build();
     }
 

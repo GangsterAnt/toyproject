@@ -13,6 +13,7 @@ import java.util.Map;
 @Component
 public class CommentBoHierarchyService {
 
+    @Deprecated
     public List<CommentBo> assembleCommentListToHierarchy(List<CommentBo> comments) {
         if (comments == null) {
             return null;

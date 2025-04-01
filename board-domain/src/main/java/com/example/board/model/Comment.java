@@ -29,6 +29,7 @@ public class Comment {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;
+    private LocalDateTime updatedAt;
 
     private boolean hidden;
     private Long rootPostId;

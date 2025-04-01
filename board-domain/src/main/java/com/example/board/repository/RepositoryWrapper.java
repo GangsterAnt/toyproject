@@ -32,32 +32,25 @@ public class RepositoryWrapper {
     private final CommentEntityConverter commentEntityConverter;
     private final PostEntityConverter postEntityConverter;
 
-    public PostBo getPostById(Long id) {
+    public PostBo getPostById(Long id, Pageable pageable) {
         Optional<Post> postOptional = postRepository.findActivePostByRootPostId(id);
         if (postOptional.isEmpty()) {
             return null; //TODO return 404
         }
 
         Post post = postOptional.get();
-        List<CommentBo> collect = getRootCommentListByPostId(id);
+        List<CommentBo> collect = getRootCommentListByPostId(id,pageable);
         for (CommentBo commentBo : collect) {
-            Pageable pageable = PageRequest.of(0, 20, Sort.by( "createdAt").ascending());
-            List<CommentBo> childComments = getChildCommentsListByParentCommentId(commentBo.getCommentId(), pageable);
+            Pageable commentPageable = PageRequest.of(0, 20, Sort.by( "updatedAt").ascending());
+            List<CommentBo> childComments = getChildCommentsListByParentCommentId(commentBo.getCommentId(), commentPageable);
             commentBo.setChildCommentBoList(childComments);
         }
 
         return postEntityConverter.convertFromEntityWithComments(post, collect);
     }
 
-    public List<PostSummaryBo> getAllPosts(boolean filterDeleted) {
-        List<Post> allPosts = postRepository.findAll();
-
-        if (filterDeleted) { //TODO change this to query level
-            allPosts = allPosts.stream()
-                    .filter(post -> post.getDeletedAt() == null)
-                    .filter(post -> !post.isHidden())
-                    .collect(Collectors.toList());
-        }
+    public List<PostSummaryBo> getAllPosts(boolean filterDeleted, Pageable pageable) {
+        List<Post> allPosts = postRepository.findActivePostByPage(pageable);
 
         return allPosts.stream()
                 .map(postEntityConverter::convertToPostSummaryBo)
@@ -73,8 +66,7 @@ public class RepositoryWrapper {
                 .collect(Collectors.toList());
     }
 
-    public List<CommentBo> getRootCommentListByPostId(Long id) {
-        Pageable pageable = PageRequest.of(0, 20, Sort.by( "createdAt").ascending());
+    public List<CommentBo> getRootCommentListByPostId(Long id, Pageable pageable) {
         return Optional.ofNullable(commentRepository.findActiveRootCommentsByRootPostId(id, pageable))
                 .stream()
                 .flatMap(List::stream)

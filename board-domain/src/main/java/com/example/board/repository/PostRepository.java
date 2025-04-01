@@ -2,6 +2,7 @@ package com.example.board.repository;
 
 import com.example.board.model.Comment;
 import com.example.board.model.Post;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p WHERE p.postId = :postId AND (p.deletedAt IS NULL AND p.hidden = false)")
     Optional<Post> findActivePostByRootPostId(@Param("postId") Long postId);
+
+    @Query("SELECT p FROM Post p AND (p.deletedAt IS NULL AND p.hidden = false)")
+    List<Post> findActivePostByPage(Pageable pageable);
 
     @Modifying
     @Transactional

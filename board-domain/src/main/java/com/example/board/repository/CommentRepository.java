@@ -22,5 +22,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     List<Comment> findActiveRootCommentsByRootPostId(@Param("rootPostId") Long rootPostId, Pageable pageable);
 
     @Query("SELECT c FROM Comment c WHERE c.parentCommentId = :parentCommentId AND (c.deletedAt IS NULL AND c.hidden = false)")
-    List<Comment> findActiveChildCommentsByParentCommentId(@Param("rootPostId") Long parentCommentId, Pageable pageable);
+    List<Comment> findActiveChildCommentsByParentCommentId(@Param("parentCommentId") Long parentCommentId, Pageable pageable);
 }

@@ -48,3 +48,4 @@ thymeleaf refer //
 - board-api 전체 포스트목록 불러오기 구현.
 - board-api 포스트 없을떄 핸들링 로직 처리
 - exception handler 추가 (글로벌 익셉션 핸들러)
+- 현재 db 다 인덱싱 해놓기
