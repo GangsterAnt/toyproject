@@ -1,6 +1,7 @@
 package com.example.board.controller;
 
 import com.example.board.bo.PostSummaryBo;
+import com.example.board.dto.CommentDto;
 import com.example.board.dto.PostDto;
 import com.example.board.service.ReadService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +29,9 @@ public class ReadController {
         return postSummaryBoList;
     }
 
-//    @GetMapping("/getPostList")
-//    public PostListDto getPostList() {
-//        return readService.getPostList();
-//    }
+    @GetMapping("/getChildComments")
+    public List<CommentDto> getChildComments(@RequestParam Long commentId,
+                                             @RequestParam Long pageNumber) {
+        return readService.getChildComments(commentId, pageNumber);
+    }
 }

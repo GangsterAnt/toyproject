@@ -22,8 +22,8 @@ public class adminController {
     }
 
     @GetMapping("/admin/allpost")
-    public String adminPageGetAllPost(Model model) {
-        List<PostSummaryBo> allPost = readService.getAllPost(false);
+    public String adminPageGetAllPost(Model model, Long pageNumber) {
+        List<PostSummaryBo> allPost = readService.getAllPost(false, pageNumber);
         model.addAttribute("allPost", allPost);
         return "admin/index"; // templates/admin/index.html을 반환
     }

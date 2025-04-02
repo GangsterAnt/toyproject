@@ -1,5 +1,8 @@
 package com.example.board.repository;
 
+import com.example.board.bo.BoardPageSizeEnum;
+import com.example.board.bo.BoardPageSortEnum;
+import com.example.board.bo.PageableWrapper;
 import com.example.board.bo.CommentBo;
 import com.example.board.bo.PostBo;
 import com.example.board.bo.PostSummaryBo;
@@ -32,42 +35,37 @@ public class RepositoryWrapper {
     private final CommentEntityConverter commentEntityConverter;
     private final PostEntityConverter postEntityConverter;
 
-    public PostBo getPostById(Long id, Pageable pageable) {
+    public PostBo getPostById(Long id) {
         Optional<Post> postOptional = postRepository.findActivePostByRootPostId(id);
         if (postOptional.isEmpty()) {
             return null; //TODO return 404
         }
 
         Post post = postOptional.get();
-        List<CommentBo> collect = getRootCommentListByPostId(id,pageable);
+
+        //get root comments
+        PageableWrapper commentPageableWrapper = new PageableWrapper(0, BoardPageSizeEnum.COMMENT_DEFAULT_SIZE, BoardPageSortEnum.CREATED_DATE_ASC);
+        List<CommentBo> collect = getRootCommentListByPostId(id, commentPageableWrapper);
+
+        //get child comments
         for (CommentBo commentBo : collect) {
-            Pageable commentPageable = PageRequest.of(0, 20, Sort.by( "updatedAt").ascending());
-            List<CommentBo> childComments = getChildCommentsListByParentCommentId(commentBo.getCommentId(), commentPageable);
+            List<CommentBo> childComments = getChildCommentsListByParentCommentId(commentBo.getCommentId(), commentPageableWrapper.getPageable());
             commentBo.setChildCommentBoList(childComments);
         }
 
         return postEntityConverter.convertFromEntityWithComments(post, collect);
     }
 
-    public List<PostSummaryBo> getAllPosts(boolean filterDeleted, Pageable pageable) {
-        List<Post> allPosts = postRepository.findActivePostByPage(pageable);
+    public List<PostSummaryBo> getAllPosts(boolean filterDeleted, PageableWrapper pageable) {
+        List<Post> allPosts = filterDeleted ? postRepository.findActivePostByPage(pageable.getPageable()) : postRepository.findAllPostByPage(pageable.getPageable());
 
         return allPosts.stream()
                 .map(postEntityConverter::convertToPostSummaryBo)
                 .collect(Collectors.toList());
     }
 
-    @Deprecated
-    public List<CommentBo> getCommentListByPostId(Long id) {
-        return Optional.ofNullable(commentRepository.findActiveCommentsByRootPostId(id))
-                .stream()
-                .flatMap(List::stream)
-                .map(commentEntityConverter::convertFromEntity)
-                .collect(Collectors.toList());
-    }
-
-    public List<CommentBo> getRootCommentListByPostId(Long id, Pageable pageable) {
-        return Optional.ofNullable(commentRepository.findActiveRootCommentsByRootPostId(id, pageable))
+    public List<CommentBo> getRootCommentListByPostId(Long id, PageableWrapper pageableWrapper) {
+        return Optional.ofNullable(commentRepository.findActiveRootCommentsByRootPostId(id, pageableWrapper.getPageable()))
                 .stream()
                 .flatMap(List::stream)
                 .map(commentEntityConverter::convertFromEntity)
@@ -76,6 +74,14 @@ public class RepositoryWrapper {
 
     public List<CommentBo> getChildCommentsListByParentCommentId(Long id, Pageable pageable) {
         return Optional.ofNullable(commentRepository.findActiveChildCommentsByParentCommentId(id, pageable))
+                .stream()
+                .flatMap(List::stream)
+                .map(commentEntityConverter::convertFromEntity)
+                .collect(Collectors.toList());
+    }
+
+    public List<CommentBo> getChildComments(Long commentId, PageableWrapper pageableWrapper) {
+        return Optional.ofNullable(commentRepository.findActiveChildCommentsByParentCommentId(commentId, pageableWrapper.getPageable()))
                 .stream()
                 .flatMap(List::stream)
                 .map(commentEntityConverter::convertFromEntity)

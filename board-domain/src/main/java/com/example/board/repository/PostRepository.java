@@ -25,6 +25,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p AND (p.deletedAt IS NULL AND p.hidden = false)")
     List<Post> findActivePostByPage(Pageable pageable);
 
+    @Query("SELECT p FROM Post p AND (p.deletedAt IS NULL)")
+    List<Post> findAllPostByPage(Pageable pageable);
+
     @Modifying
     @Transactional
     @Query("UPDATE Post p SET p.hidden = true WHERE p.id = :id")
