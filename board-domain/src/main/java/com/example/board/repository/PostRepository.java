@@ -22,10 +22,10 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.postId = :postId AND (p.deletedAt IS NULL AND p.hidden = false)")
     Optional<Post> findActivePostByRootPostId(@Param("postId") Long postId);
 
-    @Query("SELECT p FROM Post p AND (p.deletedAt IS NULL AND p.hidden = false)")
+    @Query("SELECT p FROM Post p WHERE (p.deletedAt IS NULL AND p.hidden = false)")
     List<Post> findActivePostByPage(Pageable pageable);
 
-    @Query("SELECT p FROM Post p AND (p.deletedAt IS NULL)")
+    @Query("SELECT p FROM Post p WHERE (p.deletedAt IS NULL)")
     List<Post> findAllPostByPage(Pageable pageable);
 
     @Modifying
