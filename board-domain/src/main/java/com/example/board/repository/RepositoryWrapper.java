@@ -152,7 +152,7 @@ public class RepositoryWrapper {    //TODO split this by its role
     public boolean createPost(PostBo postBo) {
         try {
             Post post = postEntityConverter.convertFromBo(postBo);
-            postRepository.save(post);
+            postRepository.saveAndFlush(post); //Do not update only insert
             return true;
         } catch (Exception e) {
             log.error("Failed to create post: {}", postBo, e);

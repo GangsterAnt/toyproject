@@ -20,7 +20,6 @@ public class PostBo {
     private Integer dislikes;
 
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

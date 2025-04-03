@@ -5,6 +5,7 @@ import com.example.board.service.CreateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,8 +14,8 @@ public class CreateController {
 
     private final CreateService createService;
 
-    @PostMapping
-    public ResponseEntity<String> createPost(PostDto newPost) {
+    @PostMapping("/create/post")
+    public ResponseEntity<String> createPost(@RequestBody PostDto newPost) {
         boolean post = createService.createPost(newPost);
         if (post) {
             return ResponseEntity.ok("Post created successfully");

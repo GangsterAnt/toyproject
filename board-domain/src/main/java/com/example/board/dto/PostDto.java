@@ -19,10 +19,25 @@ public class PostDto {
     private Integer dislikes;
 
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
 
     private List<CommentDto> commentList;
+
+    public boolean isValidNewPost() {
+        return this.title != null && !this.title.isEmpty()
+                && this.content != null && !this.content.isEmpty()
+                && this.ownerMemberId != null && !this.ownerMemberId.isEmpty()
+                && postId == null
+                && dislikes == null
+                && likes == null
+                && createdAt == null
+                && updatedAt == null
+                && deletedAt == null;
+    }
+
+    public boolean isInvalidNewPost() {
+        return !isValidNewPost();
+    }
 }

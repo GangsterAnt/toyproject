@@ -29,7 +29,6 @@ public class PostDtoConverter {
                 .likes(post.getLikes())
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
-                .modifiedAt(post.getModifiedAt())
                 .updatedAt(post.getUpdatedAt())
                 .deletedAt(post.getDeletedAt()) //Is this necessary?
                 .commentList(commentDtoConverter.convertToDtoList(post.getCommentList()))
@@ -45,7 +44,6 @@ public class PostDtoConverter {
                 .likes(post.getLikes())
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
-                .modifiedAt(post.getModifiedAt())
                 .updatedAt(post.getUpdatedAt())
                 .deletedAt(post.getDeletedAt())
                 .build();
