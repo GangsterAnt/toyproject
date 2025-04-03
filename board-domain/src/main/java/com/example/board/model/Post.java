@@ -28,7 +28,6 @@ public class Post {
     private boolean hidden;
 
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;
     private LocalDateTime updatedAt;
 }

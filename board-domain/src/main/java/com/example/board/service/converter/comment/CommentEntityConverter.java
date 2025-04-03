@@ -19,7 +19,6 @@ public class CommentEntityConverter {
                 .likes(comment.getLikes())
                 .dislikes(comment.getDislikes())
                 .createdAt(comment.getCreatedAt())
-                .modifiedAt(comment.getModifiedAt())
                 .rootPostId(comment.getRootPostId())
                 .parentCommentId(comment.getParentCommentId())
                 .build();
@@ -40,7 +39,6 @@ public class CommentEntityConverter {
                 .likes(commentBo.getLikes())
                 .dislikes(commentBo.getDislikes())
                 .createdAt(commentBo.getCreatedAt())
-                .modifiedAt(commentBo.getModifiedAt())
                 .rootPostId(commentBo.getRootPostId())
                 .parentCommentId(commentBo.getParentCommentId())
                 .build();

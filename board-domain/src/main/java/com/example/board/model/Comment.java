@@ -27,7 +27,6 @@ public class Comment {
     private Integer dislikes;
 
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;
     private LocalDateTime updatedAt;
 
