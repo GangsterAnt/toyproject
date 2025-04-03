@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class DelecteService {
+public class DeleteService {
 
     private final RepositoryWrapper repositoryWrapper;
 

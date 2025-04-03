@@ -2,8 +2,8 @@ package com.example.board.repository;
 
 import com.example.board.bo.BoardPageSizeEnum;
 import com.example.board.bo.BoardPageSortEnum;
-import com.example.board.bo.PageableWrapper;
 import com.example.board.bo.CommentBo;
+import com.example.board.bo.PageableWrapper;
 import com.example.board.bo.PostBo;
 import com.example.board.bo.PostSummaryBo;
 import com.example.board.model.Post;
@@ -11,9 +11,7 @@ import com.example.board.service.converter.comment.CommentEntityConverter;
 import com.example.board.service.converter.post.PostEntityConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -27,7 +25,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RepositoryWrapper {
+public class RepositoryWrapper {    //TODO split this by its role
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
@@ -146,7 +144,18 @@ public class RepositoryWrapper {
             postRepository.softDeleteById(id, deleteAt);
             return true;
         } catch (Exception e) {
-            log.warn("Failed to delete post: {}", id, e);
+            log.error("Failed to delete post: {}", id, e);
+            return false;
+        }
+    }
+
+    public boolean createPost(PostBo postBo) {
+        try {
+            Post post = postEntityConverter.convertFromBo(postBo);
+            postRepository.save(post);
+            return true;
+        } catch (Exception e) {
+            log.error("Failed to create post: {}", postBo, e);
             return false;
         }
     }

@@ -40,12 +40,15 @@ thymeleaf refer //
 - 하드 딜리트는 배치로만 동작하게 구현 (1년? )
   - 배치잡 을 위해서 인덱싱이 필요함 (deletedAt 필드 index 추가)
 - board-admin : finish docker-compose issue
-- 댓글 페이지네이션 
-  - 댓글 api를 따로 뺴서 페이지네이션 하는것도 좋아보인다.
+- 댓글 페이지네이션  [v]
+  - 댓글 api를 따로 뺴서 페이지네이션 하는것도 좋아보인다. [v]
     - n+1 problem
-      - n개의 닷글을 가져오고, 각 n개에 대한 대댓글을 가져오는 방식 (마찬가지로 n개, 페이지네이션)
+      - n개의 닷글을 가져오고, 각 n개에 대한 대댓글을 가져오는 방식 (마찬가지로 n개, 페이지네이션) [v]
       - 쿼리dsl??
-- board-api 전체 포스트목록 불러오기 구현.
+- board-api 전체 포스트목록 불러오기 구현. [v]
 - board-api 포스트 없을떄 핸들링 로직 처리
+  - 404 엔티티로 감싸기 [v]
 - exception handler 추가 (글로벌 익셉션 핸들러)
 - 현재 db 다 인덱싱 해놓기
+  - created_at [v]
+  - deleted_at [v]

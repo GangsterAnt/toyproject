@@ -26,7 +26,23 @@ public class PostEntityConverter {
                 .likes(post.getLikes())
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .deletedAt(post.getDeletedAt())
                 .commentList(commentBoList)
+                .build();
+    }
+
+    public Post convertFromBo(PostBo postBo) {
+        return Post.builder()
+                .postId(postBo.getPostId())
+                .title(postBo.getTitle())
+                .content(postBo.getContent())
+                .ownerMemberId(postBo.getOwnerMemberId())
+                .likes(postBo.getLikes())
+                .dislikes(postBo.getDislikes())
+                .createdAt(postBo.getCreatedAt())
+                .updatedAt(postBo.getUpdatedAt())
+                .deletedAt(postBo.getDeletedAt())
                 .build();
     }
 
@@ -38,6 +54,8 @@ public class PostEntityConverter {
                 .likes(post.getLikes())
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
+                .updatedAt(post.getUpdatedAt())
+                .deletedAt(post.getDeletedAt())
                 .build();
     }
 }

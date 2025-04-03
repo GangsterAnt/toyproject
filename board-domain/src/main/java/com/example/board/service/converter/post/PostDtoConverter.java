@@ -7,6 +7,10 @@ import com.example.board.service.converter.comment.CommentDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 /*
     * This class is responsible for converting PostBo <-> PostDto
  */
@@ -26,6 +30,8 @@ public class PostDtoConverter {
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
+                .updatedAt(post.getUpdatedAt())
+                .deletedAt(post.getDeletedAt()) //Is this necessary?
                 .commentList(commentDtoConverter.convertToDtoList(post.getCommentList()))
                 .build();
     }
@@ -40,6 +46,19 @@ public class PostDtoConverter {
                 .dislikes(post.getDislikes())
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
+                .updatedAt(post.getUpdatedAt())
+                .deletedAt(post.getDeletedAt())
+                .build();
+    }
+
+    public PostBo convertToBoFromNewPost(PostDto newPost) {
+        return PostBo.builder()
+                .title(newPost.getTitle())
+                .content(newPost.getContent())
+                .ownerMemberId(newPost.getOwnerMemberId())
+                .createdAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime())
+                .updatedAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime())
+                .deletedAt(null)
                 .build();
     }
 }

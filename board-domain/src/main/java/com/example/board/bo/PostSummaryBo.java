@@ -15,4 +15,6 @@ public class PostSummaryBo {
     private int dislikes;
     private int commentCount;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 }

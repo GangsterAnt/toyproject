@@ -20,6 +20,9 @@ public class PostDto {
 
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
+
 
     private List<CommentDto> commentList;
 }

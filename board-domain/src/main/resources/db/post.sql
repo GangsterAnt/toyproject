@@ -11,4 +11,7 @@ CREATE TABLE post_v1 (
     owner_member_id BIGINT NOT NULL
 );
 
-create unique index post_idx_1 on post_v0 (created_at);
+--create unique index post_idx_1 on post_v0 (created_at);
+--create unique index idx_deleted_at on post_v1 (deleted_at);
+create index idx_deleted_at on post_v1 (deleted_at);
+create index idx_created_at on post_v1 (created_at);
