@@ -57,6 +57,9 @@ public class PostDtoConverter {
                 .createdAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime())
                 .updatedAt(ZonedDateTime.now(ZoneId.of("UTC")).toLocalDateTime())
                 .deletedAt(null)
+                .likes(0)
+                .dislikes(0)
+                .commentList(null)
                 .build();
     }
 }
