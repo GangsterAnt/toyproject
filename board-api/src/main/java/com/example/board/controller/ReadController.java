@@ -40,8 +40,13 @@ public class ReadController {
     }
 
     @GetMapping("/getChildComments")
-    public List<CommentDto> getChildComments(@RequestParam Long commentId,
+    public ResponseEntity<List<CommentDto>> getChildComments(@RequestParam Long commentId,
                                              @RequestParam Long pageNumber) {
-        return readService.getChildComments(commentId, pageNumber);
+        List<CommentDto> childComments = readService.getChildComments(commentId, pageNumber);
+        if (childComments == null || childComments.isEmpty()) {
+            return new ResponseEntity<>(Collections.emptyList(), HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(childComments, HttpStatus.OK);
+        }
     }
 }

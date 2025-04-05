@@ -16,10 +16,10 @@ public class CreateService {
     private final RepositoryWrapper repositoryWrapper;
     private final PostDtoConverter postDtoConverter;
 
-    public boolean createPost(PostDto newPost) {
+    public Long createPost(PostDto newPost) {
         if (newPost == null || newPost.isInvalidNewPost()) {
             log.error("Post ID should not be provided for a new post.");
-            return false;
+            return null;
         }
 
         PostBo postBo = postDtoConverter.convertToBoFromNewPost(newPost);

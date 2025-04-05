@@ -149,15 +149,10 @@ public class RepositoryWrapper {    //TODO split this by its role
         }
     }
 
-    public boolean createPost(PostBo postBo) {
-        try {
-            Post post = postEntityConverter.convertFromBo(postBo);
-            postRepository.saveAndFlush(post); //Do not update only insert
-            return true;
-        } catch (Exception e) {
-            log.error("Failed to create post: {}", postBo, e);
-            return false;
-        }
+    public Long createPost(PostBo postBo) {
+        Post post = postEntityConverter.convertFromBo(postBo);
+        Post response = postRepository.saveAndFlush(post);//Do not update only insert
+        return response.getPostId();
     }
 
 //    public List<PostSummaryBo> getPostSummaryList() {

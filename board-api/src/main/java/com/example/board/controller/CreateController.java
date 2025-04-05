@@ -16,9 +16,9 @@ public class CreateController {
 
     @PostMapping("/create/post")
     public ResponseEntity<String> createPost(@RequestBody PostDto newPost) {
-        boolean post = createService.createPost(newPost);
-        if (post) {
-            return ResponseEntity.ok("Post created successfully");
+        Long newPostId = createService.createPost(newPost);
+        if (newPostId != null) {
+            return ResponseEntity.ok("Post created successfully newPostId: " + newPostId);
         } else {
             return ResponseEntity.status(500).body("Failed to create post. Please check error logs.");
         }
