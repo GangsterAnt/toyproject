@@ -21,7 +21,7 @@ public class ReadController {
 
     private final ReadService readService;
 
-    @GetMapping("/getPostById")
+    @GetMapping("/getPostById") //제안 : /post  스프링 HATEOAS 참 restful하게 짜는 방법
     public ResponseEntity<PostDto> getPostById(@RequestParam Long id) {
         PostDto postById = readService.getPostById(id);
         if (postById == null) {
@@ -39,7 +39,7 @@ public class ReadController {
         return ResponseEntity.ok(postSummaryBoList);
     }
 
-    @GetMapping("/getChildComments")
+    @GetMapping("/getChildComments") //제안 : commentDetail
     public ResponseEntity<List<CommentDto>> getChildComments(@RequestParam Long commentId,
                                              @RequestParam Long pageNumber) {
         List<CommentDto> childComments = readService.getChildComments(commentId, pageNumber);

@@ -39,7 +39,7 @@ thymeleaf refer //
 
 - 하드 딜리트는 배치로만 동작하게 구현 (1년? )
   - [x] 배치잡 을 위해서 인덱싱이 필요함 (deletedAt 필드 index 추가)
-- board-admin : finish docker-compose issue
+- board-admin : finish docker-compose issue 
 - 댓글 페이지네이션
   - 댓글 api를 따로 뺴서 페이지네이션 하는것도 좋아보인다. [v]
     - n+1 problem
@@ -48,7 +48,22 @@ thymeleaf refer //
 - board-api 전체 포스트목록 불러오기 구현. [v]
 - board-api 포스트 없을떄 핸들링 로직 처리
   - 404 엔티티로 감싸기 [v]
-- exception handler 추가 (글로벌 익셉션 핸들러)
+- exception handler 추가 (글로벌 익셉션 핸들러) [x]
 - 현재 db 다 인덱싱 해놓기
   - created_at [v]
   - deleted_at [v]
+
+
+4/12
+- batch-hardDelete 구현
+- URL 설계를 좀더 RestAPI ful하게 만들어보기.
+  - 이게 가장 표준이 된다. - 역할을 유추할 수 있게 하는 표준.
+    - 예시 ) graphql을 네이티브가 선호하는 이유 -> 뭐가 올지 예상이 된다.
+  - CRUD 짜기. 현재 도메인식으로 짜고있지않음 ->
+    - 현재 -> CRUD 처럼 컨트롤러가 묶여있지만.
+    - 이후에는 도메인 롤에 맞게. post, comment, etc...
+      - CRUD는 기능확장에 유연성이 떨어진다. 너무 큰 4개로만 계속 묶여있을테니 분리가 안될것.
+      - 기능의 토픽에 대해서 묶어 분리하자. i.e) Bo -> postBo,commentBo... 를 post->Bo,dto, 
+- getAllPost 안에 Comment number update.
+- docker-compose 는 대면으로 마무리 짓기.
+- 

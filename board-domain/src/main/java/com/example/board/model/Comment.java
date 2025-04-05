@@ -31,6 +31,6 @@ public class Comment {
     private LocalDateTime updatedAt;
 
     private boolean hidden;
-    private Long rootPostId;
+    private Long rootPostId; //어노테이션 쓰면 진짜 post를 불러올수 있다.
     private Long parentCommentId;
 }
