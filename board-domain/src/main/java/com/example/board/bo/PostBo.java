@@ -24,4 +24,6 @@ public class PostBo {
     private LocalDateTime deletedAt;
 
     private List<CommentBo> commentList;
+
+
 }

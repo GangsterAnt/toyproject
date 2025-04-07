@@ -120,7 +120,7 @@ public class RepositoryWrapper {    //TODO split this by its role
         try {
             postRepository.unHideCommentById(id);
             return true;
-        } catch (Exception e) {
+        } catch (Exception e) { // 나중에 밑에서 throw 해버리지 말기,
             log.warn("Failed to un-hide post: {}", id, e);
             return false;
         }

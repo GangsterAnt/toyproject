@@ -55,7 +55,9 @@ thymeleaf refer //
 
 
 4/12
-- batch-hardDelete 구현
+- 의미있게 고민하기 (P0)
+  - restful API 부터 쪼개기 (역할 중심)
+- batch-hardDelete 구현 (p2)
 - URL 설계를 좀더 RestAPI ful하게 만들어보기.
   - 이게 가장 표준이 된다. - 역할을 유추할 수 있게 하는 표준.
     - 예시 ) graphql을 네이티브가 선호하는 이유 -> 뭐가 올지 예상이 된다.
@@ -66,4 +68,16 @@ thymeleaf refer //
       - 기능의 토픽에 대해서 묶어 분리하자. i.e) Bo -> postBo,commentBo... 를 post->Bo,dto, 
 - getAllPost 안에 Comment number update.
 - docker-compose 는 대면으로 마무리 짓기.
-- 
+- QueryDsl 대면수업 ㅋㅋㅋ
+  - 예습해가기 (myBastis)
+  - UPDATE -> SAVE 로 바꾸기 
+    - 이후 Wrpper가 필요없어질수도 있다.
+- Server error : Cannot invoke "com.example.board.bo.PostBo.getPostId()" because "post" is null
+  - 시스템 정보 (i.e 구조 노출 ) 노출 방지.
+- catch(Exception e) 쓰지말기. 특정 예외만 잡도록.
+  - 나중에 만드는 커스텀 예외가 중간에 잡혀버리는 문제가 발생할 수 있다.
+
+-현재 Bo는 존재 의미가 없다
+  search itemWrapper -> productItem -> displayItem 은 쿠가 도메인들을 가로롤 잘랐기 때문에 이런 갭이 발생한다.
+  만약 entity 가 직접 수정되므로써 db side effect를 방지 (실수로 값이 수정됨)하기 위해서 Post ->postEntity 객체 를 만든다는것은이해가 된다.
+ 

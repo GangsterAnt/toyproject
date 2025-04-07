@@ -51,7 +51,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Post p SET p.deletedAt = :deletedAt WHERE p.id = :id")
-    void softDeleteById(@Param("id") Long id, @Param("deletedAt") Timestamp deletedAt);
+    int softDeleteById(@Param("id") Long id, @Param("deletedAt") Timestamp deletedAt);
 
     List<Post> findAll();
 }

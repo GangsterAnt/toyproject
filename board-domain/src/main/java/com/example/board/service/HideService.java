@@ -23,6 +23,10 @@ public class HideService {
     }
 
     public boolean unHideComment(Long id) {
-        return repositoryWrapper.unHideComment(id);
+        try {
+            return repositoryWrapper.unHideComment(id);
+        }catch (Exception e) {
+            return false;
+        }
     }
 }
