@@ -1,6 +1,6 @@
 package com.example.board.service;
 
-import com.example.board.bo.PostBo;
+import com.example.board.domain.Post;
 import com.example.board.dto.PostDto;
 import com.example.board.repository.RepositoryWrapper;
 import com.example.board.service.converter.post.PostDtoConverter;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@Deprecated
 public class CreateService {
 
     private final RepositoryWrapper repositoryWrapper;
@@ -22,7 +23,7 @@ public class CreateService {
             return null;
         }
 
-        PostBo postBo = postDtoConverter.convertToBoFromNewPost(newPost);
-        return repositoryWrapper.createPost(postBo);
+        Post post = postDtoConverter.convertToBoFromNewPost(newPost);
+        return repositoryWrapper.createPost(post);
     }
 }

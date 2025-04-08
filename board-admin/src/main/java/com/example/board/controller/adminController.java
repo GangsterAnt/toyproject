@@ -1,6 +1,6 @@
 package com.example.board.controller;
 
-import com.example.board.bo.PostSummaryBo;
+import com.example.board.domain.PostSummary;
 import com.example.board.service.ReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class adminController {
 
     @GetMapping("/admin/allpost")
     public String adminPageGetAllPost(Model model, Long pageNumber) {
-        List<PostSummaryBo> allPost = readService.getAllPost(false, pageNumber);
+        List<PostSummary> allPost = readService.getAllPost(false, pageNumber);
         model.addAttribute("allPost", allPost);
         return "admin/index"; // templates/admin/index.html을 반환
     }

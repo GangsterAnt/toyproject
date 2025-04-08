@@ -5,23 +5,22 @@ import com.example.board.domain.BoardPageSortEnum;
 import com.example.board.domain.PageableWrapper;
 import com.example.board.domain.Post;
 import com.example.board.domain.PostSummary;
-import com.example.board.dto.CommentDto;
 import com.example.board.dto.PostDto;
 import com.example.board.repository.RepositoryWrapper;
 import com.example.board.service.converter.comment.CommentDtoConverter;
 import com.example.board.service.converter.post.PostDtoConverter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Component
-@Deprecated
-public class ReadService {
+@RequiredArgsConstructor
+@Slf4j
+public class PostService {
 
     private final RepositoryWrapper repositoryWrapper;
-
     private final PostDtoConverter postDtoConverter;
     private final CommentDtoConverter commentDtoConverter;
 
@@ -35,8 +34,25 @@ public class ReadService {
         return repositoryWrapper.getAllPosts(filterDeleted, pageableWrapper); //TODO create DTO
     }
 
-    public List<CommentDto> getChildComments(Long commentId, Long pageNumber) {
-        PageableWrapper pageableWrapper = new PageableWrapper(pageNumber.intValue(), BoardPageSizeEnum.COMMENT_DEFAULT_SIZE, BoardPageSortEnum.CREATED_DATE_ASC);
-        return commentDtoConverter.convertToDtoList(repositoryWrapper.getChildComments(commentId, pageableWrapper));
+    public Long createPost(PostDto newPost) {
+        if (newPost == null || newPost.isInvalidNewPost()) {
+            log.error("Post ID should not be provided for a new post.");
+            return null;
+        }
+
+        Post post = postDtoConverter.convertToBoFromNewPost(newPost);
+        return repositoryWrapper.createPost(post);
+    }
+
+    public boolean softDeletePost(Long id) {
+        return repositoryWrapper.softDeletePost(id);
+    }
+
+    public boolean hidePost(Long id) {
+        return repositoryWrapper.hidePost(id);
+    }
+
+    public boolean unHidePost(Long id) {
+        return repositoryWrapper.unHidePost(id);
     }
 }

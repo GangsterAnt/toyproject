@@ -1,7 +1,6 @@
 package com.example.board.service;
 
-import com.example.board.bo.CommentBo;
-import org.apache.commons.collections4.CollectionUtils;
+import com.example.board.domain.Comment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.Map;
 public class CommentBoHierarchyService {
 
     @Deprecated
-    public List<CommentBo> assembleCommentListToHierarchy(List<CommentBo> comments) {
+    public List<Comment> assembleCommentListToHierarchy(List<Comment> comments) {
         if (comments == null) {
             return null;
         }
@@ -22,48 +21,48 @@ public class CommentBoHierarchyService {
         return collectRootComments(comments);
     }
 
-    private List<CommentBo> collectRootComments(List<CommentBo> comments) {
+    private List<Comment> collectRootComments(List<Comment> comments) {
 
         //find root comments
-        List<CommentBo> rootComments = getRootComments(comments);
+        List<Comment> rootComments = getRootComments(comments);
 
         //map comments by id O(n)
-        Map<Long, CommentBo> commentMap = generateCommentBoMap(comments);
+        Map<Long, Comment> commentMap = generateCommentBoMap(comments);
 
         //update parent comment's child comments O(n)
-        for (CommentBo commentBo : comments) {
-            if (commentBo.getParentCommentId() != null) {
-                CommentBo parentComment = commentMap.get(commentBo.getParentCommentId());
+        for (Comment comment : comments) {
+            if (comment.getParentCommentId() != null) {
+                Comment parentComment = commentMap.get(comment.getParentCommentId());
                 if (parentComment != null) {
-                    parentComment.getChildCommentBoList().add(commentBo);
+                    parentComment.getChildCommentList().add(comment);
                 }
             }
         }
 
         //sort comments by created date
-        rootComments.sort(Comparator.comparing(CommentBo::getCreatedAt));
-        for (CommentBo commentBo : rootComments) {
-            commentBo.getChildCommentBoList().sort(Comparator.comparing(CommentBo::getCreatedAt));
+        rootComments.sort(Comparator.comparing(Comment::getCreatedAt));
+        for (Comment comment : rootComments) {
+            comment.getChildCommentList().sort(Comparator.comparing(Comment::getCreatedAt));
         }
 
         return rootComments;
     }
 
-    private Map<Long, CommentBo> generateCommentBoMap(List<CommentBo> comments) {
-        Map<Long, CommentBo> commentMap = new HashMap<>();
+    private Map<Long, Comment> generateCommentBoMap(List<Comment> comments) {
+        Map<Long, Comment> commentMap = new HashMap<>();
         for (int i = 0; i < comments.size(); i++) {
-            CommentBo comment = comments.get(i);
+            Comment comment = comments.get(i);
             commentMap.put(comment.getCommentId(), comment);
         }
         return commentMap;
     }
 
-    private List<CommentBo> getRootComments(List<CommentBo> comments) {
-        List<CommentBo> rootComments = new ArrayList<>();
-        for (CommentBo comment : comments) {
+    private List<Comment> getRootComments(List<Comment> comments) {
+        List<Comment> rootComments = new ArrayList<>();
+        for (Comment comment : comments) {
             if (comment.getParentCommentId() == null) {
                 rootComments.add(comment);
-                comment.setChildCommentBoList(new ArrayList<>());
+                comment.setChildCommentList(new ArrayList<>());
             }
         }
         return rootComments;

@@ -1,20 +1,29 @@
-package com.example.board.bo;
+package com.example.board.domain;
+
 
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
 @Builder
-public class PostSummaryBo {
+@Getter
+public class Post {
+
     private Long postId;
     private String title;
+    private String content;
     private String ownerMemberId;
-    private int likes;
-    private int dislikes;
-    private int commentCount;
+
+    private Integer likes;
+    private Integer dislikes;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+
+    private List<Comment> commentList;
+
+
 }

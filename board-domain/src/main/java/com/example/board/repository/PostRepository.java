@@ -1,7 +1,6 @@
 package com.example.board.repository;
 
-import com.example.board.model.Comment;
-import com.example.board.model.Post;
+import com.example.board.model.PostEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,18 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
-    Optional<Post> findByPostId(@Param("post_id") Long playerId);
+    Optional<PostEntity> findByPostId(@Param("post_id") Long playerId);
 
     @Query("SELECT p FROM Post p WHERE p.postId = :postId AND (p.deletedAt IS NULL AND p.hidden = false)")
-    Optional<Post> findActivePostByRootPostId(@Param("postId") Long postId);
+    Optional<PostEntity> findActivePostByRootPostId(@Param("postId") Long postId);
 
     @Query("SELECT p FROM Post p WHERE (p.deletedAt IS NULL AND p.hidden = false)")
-    List<Post> findActivePostByPage(Pageable pageable);
+    List<PostEntity> findActivePostByPage(Pageable pageable);
 
     @Query("SELECT p FROM Post p WHERE (p.deletedAt IS NULL)")
-    List<Post> findAllPostByPage(Pageable pageable);
+    List<PostEntity> findAllPostByPage(Pageable pageable);
 
     @Modifying
     @Transactional
@@ -53,5 +52,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("UPDATE Post p SET p.deletedAt = :deletedAt WHERE p.id = :id")
     int softDeleteById(@Param("id") Long id, @Param("deletedAt") Timestamp deletedAt);
 
-    List<Post> findAll();
+    List<PostEntity> findAll();
 }

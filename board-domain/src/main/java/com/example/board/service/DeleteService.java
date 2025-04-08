@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Deprecated
 public class DeleteService {
 
     private final RepositoryWrapper repositoryWrapper;

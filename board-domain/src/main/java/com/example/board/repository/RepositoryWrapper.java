@@ -1,12 +1,12 @@
 package com.example.board.repository;
 
-import com.example.board.bo.BoardPageSizeEnum;
-import com.example.board.bo.BoardPageSortEnum;
-import com.example.board.bo.CommentBo;
-import com.example.board.bo.PageableWrapper;
-import com.example.board.bo.PostBo;
-import com.example.board.bo.PostSummaryBo;
-import com.example.board.model.Post;
+import com.example.board.domain.BoardPageSizeEnum;
+import com.example.board.domain.BoardPageSortEnum;
+import com.example.board.domain.Comment;
+import com.example.board.domain.PageableWrapper;
+import com.example.board.domain.Post;
+import com.example.board.domain.PostSummary;
+import com.example.board.model.PostEntity;
 import com.example.board.service.converter.comment.CommentEntityConverter;
 import com.example.board.service.converter.post.PostEntityConverter;
 import lombok.RequiredArgsConstructor;
@@ -33,36 +33,36 @@ public class RepositoryWrapper {    //TODO split this by its role
     private final CommentEntityConverter commentEntityConverter;
     private final PostEntityConverter postEntityConverter;
 
-    public PostBo getPostById(Long id) {
-        Optional<Post> postOptional = postRepository.findActivePostByRootPostId(id);
+    public Post getPostById(Long id) {
+        Optional<PostEntity> postOptional = postRepository.findActivePostByRootPostId(id);
         if (postOptional.isEmpty()) {
             return null; //TODO return 404
         }
 
-        Post post = postOptional.get();
+        PostEntity postEntity = postOptional.get();
 
         //get root comments
         PageableWrapper commentPageableWrapper = new PageableWrapper(0, BoardPageSizeEnum.COMMENT_DEFAULT_SIZE, BoardPageSortEnum.CREATED_DATE_ASC);
-        List<CommentBo> collect = getRootCommentListByPostId(id, commentPageableWrapper);
+        List<Comment> collect = getRootCommentListByPostId(id, commentPageableWrapper);
 
         //get child comments
-        for (CommentBo commentBo : collect) {
-            List<CommentBo> childComments = getChildCommentsListByParentCommentId(commentBo.getCommentId(), commentPageableWrapper.getPageable());
-            commentBo.setChildCommentBoList(childComments);
+        for (Comment comment : collect) {
+            List<Comment> childComments = getChildCommentsListByParentCommentId(comment.getCommentId(), commentPageableWrapper.getPageable());
+            comment.setChildCommentList(childComments);
         }
 
-        return postEntityConverter.convertFromEntityWithComments(post, collect);
+        return postEntityConverter.convertFromEntityWithComments(postEntity, collect);
     }
 
-    public List<PostSummaryBo> getAllPosts(boolean filterDeleted, PageableWrapper pageable) {
-        List<Post> allPosts = filterDeleted ? postRepository.findActivePostByPage(pageable.getPageable()) : postRepository.findAllPostByPage(pageable.getPageable());
+    public List<PostSummary> getAllPosts(boolean filterDeleted, PageableWrapper pageable) {
+        List<PostEntity> allPostEntities = filterDeleted ? postRepository.findActivePostByPage(pageable.getPageable()) : postRepository.findAllPostByPage(pageable.getPageable());
 
-        return allPosts.stream()
+        return allPostEntities.stream()
                 .map(postEntityConverter::convertToPostSummaryBo)
                 .collect(Collectors.toList());
     }
 
-    public List<CommentBo> getRootCommentListByPostId(Long id, PageableWrapper pageableWrapper) {
+    public List<Comment> getRootCommentListByPostId(Long id, PageableWrapper pageableWrapper) {
         return Optional.ofNullable(commentRepository.findActiveRootCommentsByRootPostId(id, pageableWrapper.getPageable()))
                 .stream()
                 .flatMap(List::stream)
@@ -70,7 +70,7 @@ public class RepositoryWrapper {    //TODO split this by its role
                 .collect(Collectors.toList());
     }
 
-    public List<CommentBo> getChildCommentsListByParentCommentId(Long id, Pageable pageable) {
+    public List<Comment> getChildCommentsListByParentCommentId(Long id, Pageable pageable) {
         return Optional.ofNullable(commentRepository.findActiveChildCommentsByParentCommentId(id, pageable))
                 .stream()
                 .flatMap(List::stream)
@@ -78,7 +78,7 @@ public class RepositoryWrapper {    //TODO split this by its role
                 .collect(Collectors.toList());
     }
 
-    public List<CommentBo> getChildComments(Long commentId, PageableWrapper pageableWrapper) {
+    public List<Comment> getChildComments(Long commentId, PageableWrapper pageableWrapper) {
         return Optional.ofNullable(commentRepository.findActiveChildCommentsByParentCommentId(commentId, pageableWrapper.getPageable()))
                 .stream()
                 .flatMap(List::stream)
@@ -149,9 +149,9 @@ public class RepositoryWrapper {    //TODO split this by its role
         }
     }
 
-    public Long createPost(PostBo postBo) {
-        Post post = postEntityConverter.convertFromBo(postBo);
-        Post response = postRepository.saveAndFlush(post);//Do not update only insert
+    public Long createPost(Post post) {
+        PostEntity postEntity = postEntityConverter.convertFromBo(post);
+        PostEntity response = postRepository.saveAndFlush(postEntity);//Do not update only insert
         return response.getPostId();
     }
 

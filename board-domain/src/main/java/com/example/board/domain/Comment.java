@@ -1,4 +1,4 @@
-package com.example.board.bo;
+package com.example.board.domain;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class CommentBo {
+public class Comment {
     private Long commentId;
     private String content;
     private String ownerMemberId;
@@ -28,7 +28,7 @@ public class CommentBo {
 
     @Nullable
     @Setter
-    private List<CommentBo> childCommentBoList;
+    private List<Comment> childCommentList;
 }
 
 /*

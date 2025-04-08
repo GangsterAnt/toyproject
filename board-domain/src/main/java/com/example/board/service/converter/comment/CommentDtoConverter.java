@@ -1,6 +1,6 @@
 package com.example.board.service.converter.comment;
 
-import com.example.board.bo.CommentBo;
+import com.example.board.domain.Comment;
 import com.example.board.dto.CommentDto;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @Component
 public class CommentDtoConverter {
 
-    public CommentBo convertToBo(CommentDto commentDto) {
+    public Comment convertToBo(CommentDto commentDto) {
         if (commentDto == null) {
             return null;
         }
 
-        return CommentBo.builder()
+        return Comment.builder()
                 .commentId(commentDto.getCommentId())
                 .content(commentDto.getContent())
                 .createdAt(commentDto.getCreatedAt())
@@ -29,7 +29,7 @@ public class CommentDtoConverter {
                 .likes(commentDto.getLikes())
                 .dislikes(commentDto.getDislikes())
                 .parentCommentId(commentDto.getParentCommentId())
-                .childCommentBoList(Optional.ofNullable(commentDto.getChildCommentDtoList())
+                .childCommentList(Optional.ofNullable(commentDto.getChildCommentDtoList())
                         .stream()
                         .flatMap(List::stream)
                         .map(this::convertToBo) //Caution: recursive call
@@ -37,22 +37,22 @@ public class CommentDtoConverter {
                 .build();
     }
 
-    public CommentDto convertToDto(CommentBo commentBo) {
-        if (commentBo == null) {
+    public CommentDto convertToDto(Comment comment) {
+        if (comment == null) {
             return null;
         }
 
         return CommentDto.builder()
-                .commentId(commentBo.getCommentId())
-                .content(commentBo.getContent())
-                .createdAt(commentBo.getCreatedAt())
-                .modifiedAt(commentBo.getModifiedAt())
-                .ownerMemberId(commentBo.getOwnerMemberId())
-                .rootPostId(commentBo.getRootPostId())
-                .likes(commentBo.getLikes())
-                .dislikes(commentBo.getDislikes())
-                .parentCommentId(commentBo.getParentCommentId())
-                .childCommentDtoList(Optional.ofNullable(commentBo.getChildCommentBoList())
+                .commentId(comment.getCommentId())
+                .content(comment.getContent())
+                .createdAt(comment.getCreatedAt())
+                .modifiedAt(comment.getModifiedAt())
+                .ownerMemberId(comment.getOwnerMemberId())
+                .rootPostId(comment.getRootPostId())
+                .likes(comment.getLikes())
+                .dislikes(comment.getDislikes())
+                .parentCommentId(comment.getParentCommentId())
+                .childCommentDtoList(Optional.ofNullable(comment.getChildCommentList())
                         .stream()
                         .flatMap(List::stream)
                         .map(this::convertToDto) //Caution: recursive call
@@ -60,8 +60,8 @@ public class CommentDtoConverter {
                 .build();
     }
 
-    public List<CommentDto> convertToDtoList(List<CommentBo> commentBoList) {
-        return commentBoList.stream()
+    public List<CommentDto> convertToDtoList(List<Comment> commentList) {
+        return commentList.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }

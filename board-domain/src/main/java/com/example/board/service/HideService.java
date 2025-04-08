@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Deprecated
 public class HideService {
 
     private final RepositoryWrapper repositoryWrapper;

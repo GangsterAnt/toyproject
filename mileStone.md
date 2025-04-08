@@ -10,7 +10,7 @@ thymeleaf refer //
 
 3.23
 
-- 대댓글 구조 단순화 + 페이지네이션 (root comment 기준 n개, 인덱싱) [v]
+- 대댓글 구조 단순화 + 페이지네이션 (root commentEntity 기준 n개, 인덱싱) [v]
 - docker compose로 여러개 도커 (mysql, board-api,...) 동시 띄우는 기능 설정 (like dev zone)'
   - board-api [v]
   - board-admin -> 뭔가 꼬여서 mysql Dialect?? 에러 발생해서 compose 로 띄우는게 안됨
@@ -63,16 +63,16 @@ thymeleaf refer //
     - 예시 ) graphql을 네이티브가 선호하는 이유 -> 뭐가 올지 예상이 된다.
   - CRUD 짜기. 현재 도메인식으로 짜고있지않음 ->
     - 현재 -> CRUD 처럼 컨트롤러가 묶여있지만.
-    - 이후에는 도메인 롤에 맞게. post, comment, etc...
+    - 이후에는 도메인 롤에 맞게. postEntity, commentEntity, etc...
       - CRUD는 기능확장에 유연성이 떨어진다. 너무 큰 4개로만 계속 묶여있을테니 분리가 안될것.
-      - 기능의 토픽에 대해서 묶어 분리하자. i.e) Bo -> postBo,commentBo... 를 post->Bo,dto, 
+      - 기능의 토픽에 대해서 묶어 분리하자. i.e) Bo -> post,comment... 를 postEntity->Bo,dto, 
 - getAllPost 안에 Comment number update.
 - docker-compose 는 대면으로 마무리 짓기.
 - QueryDsl 대면수업 ㅋㅋㅋ
   - 예습해가기 (myBastis)
   - UPDATE -> SAVE 로 바꾸기 
     - 이후 Wrpper가 필요없어질수도 있다.
-- Server error : Cannot invoke "com.example.board.bo.PostBo.getPostId()" because "post" is null
+- Server error : Cannot invoke "com.example.board.domain.Post.getPostId()" because "postEntity" is null
   - 시스템 정보 (i.e 구조 노출 ) 노출 방지.
 - catch(Exception e) 쓰지말기. 특정 예외만 잡도록.
   - 나중에 만드는 커스텀 예외가 중간에 잡혀버리는 문제가 발생할 수 있다.

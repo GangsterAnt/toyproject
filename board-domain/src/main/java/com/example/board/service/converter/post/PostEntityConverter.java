@@ -1,9 +1,9 @@
 package com.example.board.service.converter.post;
 
-import com.example.board.bo.CommentBo;
-import com.example.board.bo.PostBo;
-import com.example.board.bo.PostSummaryBo;
-import com.example.board.model.Post;
+import com.example.board.domain.Comment;
+import com.example.board.domain.Post;
+import com.example.board.domain.PostSummary;
+import com.example.board.model.PostEntity;
 import com.example.board.service.CommentBoHierarchyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,8 +17,23 @@ public class PostEntityConverter {
    private final CommentBoHierarchyService commentBoHierarchyService;
 
    //entity -> Bo
-    public PostBo convertFromEntityWithComments(Post post, List<CommentBo> commentBoList) {
-        return PostBo.builder()
+    public Post convertFromEntityWithComments(PostEntity postEntity, List<Comment> commentList) {
+        return Post.builder()
+                .postId(postEntity.getPostId())
+                .title(postEntity.getTitle())
+                .content(postEntity.getContent())
+                .ownerMemberId(postEntity.getOwnerMemberId())
+                .likes(postEntity.getLikes())
+                .dislikes(postEntity.getDislikes())
+                .createdAt(postEntity.getCreatedAt())
+                .updatedAt(postEntity.getUpdatedAt())
+                .deletedAt(postEntity.getDeletedAt())
+                .commentList(commentList)
+                .build();
+    }
+
+    public PostEntity convertFromBo(Post post) {
+        return PostEntity.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .content(post.getContent())
@@ -28,34 +43,19 @@ public class PostEntityConverter {
                 .createdAt(post.getCreatedAt())
                 .updatedAt(post.getUpdatedAt())
                 .deletedAt(post.getDeletedAt())
-                .commentList(commentBoList)
                 .build();
     }
 
-    public Post convertFromBo(PostBo postBo) {
-        return Post.builder()
-                .postId(postBo.getPostId())
-                .title(postBo.getTitle())
-                .content(postBo.getContent())
-                .ownerMemberId(postBo.getOwnerMemberId())
-                .likes(postBo.getLikes())
-                .dislikes(postBo.getDislikes())
-                .createdAt(postBo.getCreatedAt())
-                .updatedAt(postBo.getUpdatedAt())
-                .deletedAt(postBo.getDeletedAt())
-                .build();
-    }
-
-    public PostSummaryBo convertToPostSummaryBo(Post post) {
-        return PostSummaryBo.builder()
-                .postId(post.getPostId())
-                .title(post.getTitle())
-                .ownerMemberId(post.getOwnerMemberId())
-                .likes(post.getLikes())
-                .dislikes(post.getDislikes())
-                .createdAt(post.getCreatedAt())
-                .updatedAt(post.getUpdatedAt())
-                .deletedAt(post.getDeletedAt())
+    public PostSummary convertToPostSummaryBo(PostEntity postEntity) {
+        return PostSummary.builder()
+                .postId(postEntity.getPostId())
+                .title(postEntity.getTitle())
+                .ownerMemberId(postEntity.getOwnerMemberId())
+                .likes(postEntity.getLikes())
+                .dislikes(postEntity.getDislikes())
+                .createdAt(postEntity.getCreatedAt())
+                .updatedAt(postEntity.getUpdatedAt())
+                .deletedAt(postEntity.getDeletedAt())
                 .build();
     }
 }

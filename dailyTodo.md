@@ -9,3 +9,8 @@ TODO
 - memberId가 int 로 되어있는데 지금 이것을 유지할지? String 으로 할지?
   - 어떻게 unique 하게 관리할것인가?
 
+
+[4.8]
+- restful 하게 개선..
+  - controller 동작 중심에서 리소스 중심으로 변경.
+  - 

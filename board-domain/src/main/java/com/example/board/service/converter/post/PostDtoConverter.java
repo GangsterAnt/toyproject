@@ -1,13 +1,11 @@
 package com.example.board.service.converter.post;
 
-import com.example.board.bo.PostBo;
+import com.example.board.domain.Post;
 import com.example.board.dto.PostDto;
-import com.example.board.model.Post;
 import com.example.board.service.converter.comment.CommentDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -20,7 +18,7 @@ public class PostDtoConverter {
 
     private final CommentDtoConverter commentDtoConverter;
 
-    public PostDto convertToDto(PostBo post) {
+    public PostDto convertToDto(Post post) {
         return PostDto.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
@@ -35,8 +33,8 @@ public class PostDtoConverter {
                 .build();
     }
 
-    public PostBo convertToBo(PostDto post) {
-        return PostBo.builder()
+    public Post convertToBo(PostDto post) {
+        return Post.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .title(post.getContent())
@@ -49,8 +47,8 @@ public class PostDtoConverter {
                 .build();
     }
 
-    public PostBo convertToBoFromNewPost(PostDto newPost) {
-        return PostBo.builder()
+    public Post convertToBoFromNewPost(PostDto newPost) {
+        return Post.builder()
                 .title(newPost.getTitle())
                 .content(newPost.getContent())
                 .ownerMemberId(newPost.getOwnerMemberId())

@@ -15,28 +15,28 @@
 <div th:if="${message}" th:text="${message}" style="color: red;"></div>
 
 <h2>게시물 숨기기</h2>
-<form id="hidePostForm" action="/hide/post" method="post">
+<form id="hidePostForm" action="/hide/postEntity" method="postEntity">
     <label for="postId1">게시물 ID:</label>
     <input type="text" id="postId1" name="id">
     <button type="submit">숨기기</button>
 </form>
 
 <h2>게시물 보이기</h2>
-<form id="unHidePostForm" action="/un-hide/post" method="post">
+<form id="unHidePostForm" action="/un-hide/postEntity" method="postEntity">
     <label for="postId2">게시물 ID:</label>
     <input type="text" id="postId2" name="id">
     <button type="submit">보이기</button>
 </form>
 
 <h2>댓글 숨기기</h2>
-<form id="hideCommentForm" action="/hide/comment" method="post">
+<form id="hideCommentForm" action="/hide/commentEntity" method="postEntity">
     <label for="commentId1">댓글 ID:</label>
     <input type="text" id="commentId1" name="id">
     <button type="submit">숨기기</button>
 </form>
 
 <h2>댓글 보이기</h2>
-<form id="unHideCommentForm" action="/un-hide/comment" method="post">
+<form id="unHideCommentForm" action="/un-hide/commentEntity" method="postEntity">
     <label for="commentId2">댓글 ID:</label>
     <input type="text" id="commentId2" name="id">
     <button type="submit">보이기</button>
