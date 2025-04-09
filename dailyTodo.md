@@ -26,3 +26,8 @@ restful 하게 개선..
  - [ ] post,comment 테이블에 ownerMemberId를 String 으로 변환할지 고민. (P2)
  - [ ] post,comment 테이블에 ownerMemberId를 인덱싱하기
  
+
+4.9
+- [x] RepositoryWrapper 없애기
+- [x] postDto를 postRequest, postResponse로 나누기
+- [x] deprecated된 기존 서비스들 삭제하기
