@@ -1,7 +1,7 @@
 package com.example.board.service;
 
 import com.example.board.domain.Post;
-import com.example.board.dto.PostDto;
+import com.example.board.dto.PostResponse;
 import com.example.board.repository.RepositoryWrapper;
 import com.example.board.service.converter.post.PostDtoConverter;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class CreateService {
     private final RepositoryWrapper repositoryWrapper;
     private final PostDtoConverter postDtoConverter;
 
-    public Long createPost(PostDto newPost) {
+    public Long createPost(PostResponse newPost) {
         if (newPost == null || newPost.isInvalidNewPost()) {
             log.error("Post ID should not be provided for a new post.");
             return null;

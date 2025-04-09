@@ -1,7 +1,8 @@
 package com.example.board.controller;
 
 import com.example.board.domain.PostSummary;
-import com.example.board.dto.PostDto;
+import com.example.board.dto.PostRequest;
+import com.example.board.dto.PostResponse;
 import com.example.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/posts") //create 라는 단어는 사용하지 않음, Restful하게 짜는 방법. POST api임으로 post를 만드는것을 의미함
-    public ResponseEntity<String> createPost(@RequestBody PostDto newPost) {
-        Long newPostId = postService.createPost(newPost);
+    public ResponseEntity<String> createPost(@RequestBody PostRequest postRequest) {
+        Long newPostId = postService.createPost(postRequest);
         if (newPostId != null) {
             return ResponseEntity.ok("Post created successfully newPostId: " + newPostId);
         } else {
@@ -33,8 +34,8 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable("id") Long id) {
-        PostDto postById = postService.getPostById(id);
+    public ResponseEntity<PostResponse> getPostById(@PathVariable("id") Long id) {
+        PostResponse postById = postService.getPostById(id);
         if (postById == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

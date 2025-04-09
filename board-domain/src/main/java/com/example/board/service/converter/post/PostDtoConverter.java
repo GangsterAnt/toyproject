@@ -1,7 +1,7 @@
 package com.example.board.service.converter.post;
 
 import com.example.board.domain.Post;
-import com.example.board.dto.PostDto;
+import com.example.board.dto.PostResponse;
 import com.example.board.service.converter.comment.CommentDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,8 +18,8 @@ public class PostDtoConverter {
 
     private final CommentDtoConverter commentDtoConverter;
 
-    public PostDto convertToDto(Post post) {
-        return PostDto.builder()
+    public PostResponse convertToDto(Post post) {
+        return PostResponse.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .title(post.getContent())
@@ -33,7 +33,7 @@ public class PostDtoConverter {
                 .build();
     }
 
-    public Post convertToBo(PostDto post) {
+    public Post convertToBo(PostResponse post) {
         return Post.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
@@ -47,7 +47,7 @@ public class PostDtoConverter {
                 .build();
     }
 
-    public Post convertToBoFromNewPost(PostDto newPost) {
+    public Post convertToBoFromNewPost(PostResponse newPost) {
         return Post.builder()
                 .title(newPost.getTitle())
                 .content(newPost.getContent())

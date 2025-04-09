@@ -2,14 +2,13 @@ package com.example.board.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @Data
-public class PostDto {
+public class PostResponse {
     private Long postId;
     private String title;
     private String content;

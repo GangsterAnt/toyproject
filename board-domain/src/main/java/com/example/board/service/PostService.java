@@ -5,10 +5,12 @@ import com.example.board.domain.BoardPageSortEnum;
 import com.example.board.domain.PageableWrapper;
 import com.example.board.domain.Post;
 import com.example.board.domain.PostSummary;
-import com.example.board.dto.PostDto;
+import com.example.board.dto.PostRequest;
+import com.example.board.dto.PostResponse;
 import com.example.board.repository.RepositoryWrapper;
 import com.example.board.service.converter.comment.CommentDtoConverter;
 import com.example.board.service.converter.post.PostDtoConverter;
+import com.example.board.service.converter.post.PostRequestConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,8 +25,9 @@ public class PostService {
     private final RepositoryWrapper repositoryWrapper;
     private final PostDtoConverter postDtoConverter;
     private final CommentDtoConverter commentDtoConverter;
+    private final PostRequestConverter postRequestConverter;
 
-    public PostDto getPostById(Long id) {
+    public PostResponse getPostById(Long id) {
         Post post = repositoryWrapper.getPostById(id);
         return postDtoConverter.convertToDto(post);
     }
@@ -34,13 +37,13 @@ public class PostService {
         return repositoryWrapper.getAllPosts(filterDeleted, pageableWrapper); //TODO create DTO
     }
 
-    public Long createPost(PostDto newPost) {
-        if (newPost == null || newPost.isInvalidNewPost()) {
+    public Long createPost(PostRequest postRequest) {
+        if (postRequest == null || postRequest.isInvalidRequest()) {
             log.error("Post ID should not be provided for a new post.");
             return null;
         }
 
-        Post post = postDtoConverter.convertToBoFromNewPost(newPost);
+        Post post = postRequestConverter.convertPostFromPostRequest(postRequest);
         return repositoryWrapper.createPost(post);
     }
 

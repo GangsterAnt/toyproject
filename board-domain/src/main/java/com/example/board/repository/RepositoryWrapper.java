@@ -58,7 +58,7 @@ public class RepositoryWrapper {    //TODO split this by its role
         List<PostEntity> allPostEntities = filterDeleted ? postRepository.findActivePostByPage(pageable.getPageable()) : postRepository.findAllPostByPage(pageable.getPageable());
 
         return allPostEntities.stream()
-                .map(postEntityConverter::convertToPostSummaryBo)
+                .map(postEntityConverter::convertToPostSummary)
                 .collect(Collectors.toList());
     }
 
@@ -150,7 +150,7 @@ public class RepositoryWrapper {    //TODO split this by its role
     }
 
     public Long createPost(Post post) {
-        PostEntity postEntity = postEntityConverter.convertFromBo(post);
+        PostEntity postEntity = postEntityConverter.convertFromDomainModel(post);
         PostEntity response = postRepository.saveAndFlush(postEntity);//Do not update only insert
         return response.getPostId();
     }

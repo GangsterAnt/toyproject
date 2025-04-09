@@ -6,7 +6,7 @@ import com.example.board.domain.PageableWrapper;
 import com.example.board.domain.Post;
 import com.example.board.domain.PostSummary;
 import com.example.board.dto.CommentDto;
-import com.example.board.dto.PostDto;
+import com.example.board.dto.PostResponse;
 import com.example.board.repository.RepositoryWrapper;
 import com.example.board.service.converter.comment.CommentDtoConverter;
 import com.example.board.service.converter.post.PostDtoConverter;
@@ -25,7 +25,7 @@ public class ReadService {
     private final PostDtoConverter postDtoConverter;
     private final CommentDtoConverter commentDtoConverter;
 
-    public PostDto getPostById(Long id) {
+    public PostResponse getPostById(Long id) {
         Post post = repositoryWrapper.getPostById(id);
         return postDtoConverter.convertToDto(post);
     }

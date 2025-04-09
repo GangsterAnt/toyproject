@@ -4,7 +4,6 @@ import com.example.board.domain.Comment;
 import com.example.board.domain.Post;
 import com.example.board.domain.PostSummary;
 import com.example.board.model.PostEntity;
-import com.example.board.service.CommentBoHierarchyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +12,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class PostEntityConverter {
-
-   private final CommentBoHierarchyService commentBoHierarchyService;
 
    //entity -> Bo
     public Post convertFromEntityWithComments(PostEntity postEntity, List<Comment> commentList) {
@@ -32,7 +29,7 @@ public class PostEntityConverter {
                 .build();
     }
 
-    public PostEntity convertFromBo(Post post) {
+    public PostEntity convertFromDomainModel(Post post) {
         return PostEntity.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
@@ -46,7 +43,7 @@ public class PostEntityConverter {
                 .build();
     }
 
-    public PostSummary convertToPostSummaryBo(PostEntity postEntity) {
+    public PostSummary convertToPostSummary(PostEntity postEntity) {
         return PostSummary.builder()
                 .postId(postEntity.getPostId())
                 .title(postEntity.getTitle())

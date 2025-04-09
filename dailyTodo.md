@@ -10,7 +10,19 @@ TODO
   - 어떻게 unique 하게 관리할것인가?
 
 
-[4.8]
-- restful 하게 개선..
-  - controller 동작 중심에서 리소스 중심으로 변경.
-  - 
+4.8
+restful 하게 개선..
+ - [x] controller 동작 중심에서 리소스 중심으로 변경.
+ - [x] service 동작 중심에서 리소스 중심으로 변경.
+ - [x] post/comment -> postEntity/commentEntity, postBo/commentBo -> post/comment 로 리네임
+ - [ ] repositoryWrapper 없애기.? 고민해보기
+   - 현재는 로직 (converting logic)의 역할만 하고있음. 이럴거면 서비스에서 처리하는게 나을수도?
+   - 그렇지만 entity를 서비스에 직접 노출하고 싶지않음... 어떻게 해야할까??
+     - 왜 wrapper 를 만들었는지?
+       - entity를 서비스에 노출하고 싶지 않았음. side effect 방지. 추후 추가될수 있는 비즈니스 로직 및 필드까지 원활하게 추가 할 수 있음.
+       - 예를 들면 post 안에 첨부파일 라는 필드가 추가된다면? postEntity에는 없어야하고 도메인 모델에서는 존재해야 다루기 편함.
+       - 그치만 이거 그냥 서비스에서 처리해도 되는데? 그리고 엔티티가 서비스에서 쓰이는걸 방지할수도 없는건디?
+ - [x] newPost 클래스 생성. 새로운 post는 이객체로 받아서 생성하자.
+ - [ ] post,comment 테이블에 ownerMemberId를 String 으로 변환할지 고민. (P2)
+ - [ ] post,comment 테이블에 ownerMemberId를 인덱싱하기
+ 
