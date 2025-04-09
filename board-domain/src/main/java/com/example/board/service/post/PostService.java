@@ -7,7 +7,7 @@ import com.example.board.domain.Post;
 import com.example.board.domain.PostSummary;
 import com.example.board.dto.PostRequest;
 import com.example.board.dto.PostResponse;
-import com.example.board.service.converter.post.PostDtoConverter;
+import com.example.board.service.converter.post.PostResponseConverter;
 import com.example.board.service.converter.post.PostRequestConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +20,13 @@ import java.util.List;
 @Slf4j
 public class PostService {
 
-    private final PostDtoConverter postDtoConverter;
+    private final PostResponseConverter postResponseConverter;
     private final PostRequestConverter postRequestConverter;
     private final PostQueryService postQueryService;
 
     public PostResponse getPostById(Long id) {
         Post post = postQueryService.getPostById(id);
-        return postDtoConverter.convertToDto(post);
+        return postResponseConverter.convertToDto(post);
     }
 
     public List<PostSummary> getAllPost(boolean filterDeleted, Long pageNumber) {
