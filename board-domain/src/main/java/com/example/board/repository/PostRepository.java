@@ -30,27 +30,17 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Post p SET p.hidden = true WHERE p.id = :id")
-    void hidePostById(Long id);
+    boolean hidePostById(Long id);
 
     @Modifying
     @Transactional
     @Query("UPDATE Post p SET p.hidden = false WHERE p.id = :id")
-    void unHidePostById(Long id);
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE Comment c SET c.hidden = true WHERE c.id = :id")
-    void hideCommentById(Long id);
-
-    @Modifying
-    @Transactional
-    @Query("UPDATE Comment c SET c.hidden = false WHERE c.id = :id")
-    void unHideCommentById(Long id);
+    boolean unHidePostById(Long id);
 
     @Modifying
     @Transactional
     @Query("UPDATE Post p SET p.deletedAt = :deletedAt WHERE p.id = :id")
-    int softDeleteById(@Param("id") Long id, @Param("deletedAt") Timestamp deletedAt);
+    boolean softDeleteById(@Param("id") Long id, @Param("deletedAt") Timestamp deletedAt);
 
     List<PostEntity> findAll();
 }

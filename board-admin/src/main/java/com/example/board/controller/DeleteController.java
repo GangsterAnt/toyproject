@@ -1,6 +1,6 @@
 package com.example.board.controller;
 
-import com.example.board.service.DeleteService;
+import com.example.board.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class DeleteController {
 
-    private final DeleteService deleteService;
+    private final PostService postService;
 
     @DeleteMapping("/delete/soft/post")
     public String softDeletePost(@RequestParam Long id) {
-        boolean b = deleteService.softDeletePost(id);
+        boolean b = postService.softDeletePost(id);
         return "soft-delete-post";
     }
 

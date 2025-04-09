@@ -1,7 +1,7 @@
 package com.example.board.controller;
 
 import com.example.board.domain.PostSummary;
-import com.example.board.service.ReadService;
+import com.example.board.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class adminController {
 
-    private ReadService readService;
+    private final PostService postService;
 
     @GetMapping("/admin")
     public String adminPage(Model model) {
@@ -23,7 +23,7 @@ public class adminController {
 
     @GetMapping("/admin/allpost")
     public String adminPageGetAllPost(Model model, Long pageNumber) {
-        List<PostSummary> allPost = readService.getAllPost(false, pageNumber);
+        List<PostSummary> allPost = postService.getAllPost(false, pageNumber);
         model.addAttribute("allPost", allPost);
         return "admin/index"; // templates/admin/index.html을 반환
     }

@@ -3,7 +3,7 @@ package com.example.board.controller;
 import com.example.board.domain.PostSummary;
 import com.example.board.dto.PostRequest;
 import com.example.board.dto.PostResponse;
-import com.example.board.service.PostService;
+import com.example.board.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
