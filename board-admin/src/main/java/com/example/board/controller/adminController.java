@@ -1,6 +1,6 @@
 package com.example.board.controller;
 
-import com.example.board.domain.PostSummary;
+import com.example.board.service.post.PostSummary;
 import com.example.board.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

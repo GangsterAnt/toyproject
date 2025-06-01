@@ -1,4 +1,4 @@
-package com.example.board.model;
+package com.example.board.service.comment;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

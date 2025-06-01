@@ -1,8 +1,8 @@
-package com.example.board.service.converter.post;
+package com.example.board.service.post.post;
 
-import com.example.board.domain.Post;
-import com.example.board.dto.PostResponse;
-import com.example.board.service.converter.comment.CommentDtoConverter;
+import com.example.board.service.post.Post;
+import com.example.board.service.post.PostResponse;
+import com.example.board.service.comment.comment.CommentDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,7 @@
-package com.example.board.dto;
+package com.example.board.service.comment;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;

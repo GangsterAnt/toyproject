@@ -1,6 +1,6 @@
-package com.example.board.repository;
+package com.example.board.service.post;
 
-import com.example.board.model.PostEntity;
+import com.example.board.service.post.PostEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

@@ -1,9 +1,7 @@
 package com.example.board.service.comment;
 
-import com.example.board.domain.Comment;
 import com.example.board.domain.PageableWrapper;
-import com.example.board.repository.CommentRepository;
-import com.example.board.service.converter.comment.CommentEntityConverter;
+import com.example.board.service.comment.comment.CommentEntityConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

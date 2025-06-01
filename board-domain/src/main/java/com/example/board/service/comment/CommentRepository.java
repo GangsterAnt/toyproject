@@ -1,6 +1,6 @@
-package com.example.board.repository;
+package com.example.board.service.comment;
 
-import com.example.board.model.CommentEntity;
+import com.example.board.service.comment.CommentEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

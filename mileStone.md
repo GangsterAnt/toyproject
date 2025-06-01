@@ -72,7 +72,7 @@ thymeleaf refer //
   - 예습해가기 (myBastis)
   - UPDATE -> SAVE 로 바꾸기 
     - 이후 Wrpper가 필요없어질수도 있다.
-- Server error : Cannot invoke "com.example.board.domain.Post.getPostId()" because "postEntity" is null
+- Server error : Cannot invoke "com.example.board.service.post.Post.getPostId()" because "postEntity" is null
   - 시스템 정보 (i.e 구조 노출 ) 노출 방지.
 - catch(Exception e) 쓰지말기. 특정 예외만 잡도록.
   - 나중에 만드는 커스텀 예외가 중간에 잡혀버리는 문제가 발생할 수 있다.
@@ -81,3 +81,18 @@ thymeleaf refer //
   search itemWrapper -> productItem -> displayItem 은 쿠가 도메인들을 가로롤 잘랐기 때문에 이런 갭이 발생한다.
   만약 entity 가 직접 수정되므로써 db side effect를 방지 (실수로 값이 수정됨)하기 위해서 Post ->postEntity 객체 를 만든다는것은이해가 된다.
  
+
+
+4/13
+ - DDD 처럼 만들어보자 / 혹은 테이블 처럼 만들어보자
+   - Bean은 생성만, 로직은 object가 / Entity post 
+ - 대댓글 안보여주고, 존재여부에 따라서 api 호출 가능정도만 (유튜브
+   - 대댓글 갯수 를 보여주자.
+ - 왜 Post와 PostEntity를 나눴는가?
+   - PostEntity는 db에 직접적으로 쓰일수 있는 가능성이 있는 객체,
+   - 도메인은 누군가 익숙치 않은 사람들이 들어올수 있는 가능성이 있다.
+   - 이때 Entity는 도메인에서 접근하는걸 방지하는게 좋아보인다.
+ - Jpa -> QueryDsl?
+   - Entity를 직접쓰는게 부담스러운이유
+     - 의도치않게 Update가 될떄.
+     - 이때 queryDsl로 업데이트를 한다면 dsl객체로 업데이트가 되기때문에 이 문제를 해결할 수 있다.

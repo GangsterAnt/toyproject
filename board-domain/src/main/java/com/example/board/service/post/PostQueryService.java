@@ -2,14 +2,10 @@ package com.example.board.service.post;
 
 import com.example.board.domain.BoardPageSizeEnum;
 import com.example.board.domain.BoardPageSortEnum;
-import com.example.board.domain.Comment;
+import com.example.board.service.comment.Comment;
 import com.example.board.domain.PageableWrapper;
-import com.example.board.domain.Post;
-import com.example.board.domain.PostSummary;
-import com.example.board.model.PostEntity;
-import com.example.board.repository.PostRepository;
 import com.example.board.service.comment.CommentQueryService;
-import com.example.board.service.converter.post.PostEntityConverter;
+import com.example.board.service.post.post.PostEntityConverter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class PostQueryService {
+ class PostQueryService {
 
     private final PostRepository postRepository;
     private final PostEntityConverter postEntityConverter;

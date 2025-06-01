@@ -1,4 +1,4 @@
-package com.example.board.service.converter.post;
+package com.example.board.service.post.post;
 
 import org.springframework.stereotype.Component;
 

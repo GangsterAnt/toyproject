@@ -1,16 +1,15 @@
-package com.example.board.domain;
+package com.example.board.service.post;
 
-
+import com.example.board.service.comment.CommentDto;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
-@Getter
-public class Post {
-
+@Data
+public class PostResponse {
     private Long postId;
     private String title;
     private String content;
@@ -23,7 +22,6 @@ public class Post {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
-    private List<Comment> commentList;
 
-
+    private List<CommentDto> commentList;
 }

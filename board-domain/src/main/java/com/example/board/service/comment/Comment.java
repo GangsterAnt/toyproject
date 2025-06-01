@@ -1,4 +1,4 @@
-package com.example.board.domain;
+package com.example.board.service.comment;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +29,14 @@ public class Comment {
     @Nullable
     @Setter
     private List<Comment> childCommentList;
+
+    public Integer getChildCommentCount() {
+        return childCommentList.size();
+    }
+
+    public CommentDto convertToDto() {
+        return null;
+    }
 }
 
 /*

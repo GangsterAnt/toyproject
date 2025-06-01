@@ -1,7 +1,7 @@
-package com.example.board.service.converter.comment;
+package com.example.board.service.comment.comment;
 
-import com.example.board.domain.Comment;
-import com.example.board.dto.CommentDto;
+import com.example.board.service.comment.Comment;
+import com.example.board.service.comment.CommentDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -57,6 +57,11 @@ public class CommentDtoConverter {
                         .flatMap(List::stream)
                         .map(this::convertToDto) //Caution: recursive call
                         .collect(Collectors.toList()))
+//                .getChildCommentCount(Optional.ofNullable(comment.getChildCommentList())
+//                        .stream()
+//                        .flatMap(List::stream)
+//                        .map(this::convertToDto) //Caution: recursive call
+//                        .collect(Collectors.toList()).size())
                 .build();
     }
 

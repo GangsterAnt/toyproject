@@ -1,7 +1,7 @@
-package com.example.board.service.converter.comment;
+package com.example.board.service.comment.comment;
 
-import com.example.board.domain.Comment;
-import com.example.board.model.CommentEntity;
+import com.example.board.service.comment.Comment;
+import com.example.board.service.comment.CommentEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
